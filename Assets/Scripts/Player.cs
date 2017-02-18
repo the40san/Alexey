@@ -2,13 +2,14 @@
 
 public class Player : MonoBehaviour {
 	public Tetrimino CurrentTetrimino {get; set;}
+	public Tetrimino NextTetrimino {get; set;}
 	private TetriminoDispenser dispenser;
 
 	public Map map;
 
 	public void Start () {
 		InitTetriminoDispenser();
-		CreateNextTetrimino();
+		UpdateCurrentTetrimino();
 	}
 
 	private void InitTetriminoDispenser()
@@ -17,11 +18,17 @@ public class Player : MonoBehaviour {
 		this.dispenser = newDispenser.GetComponent<TetriminoDispenser>();
 	}
 
-	public void CreateNextTetrimino()
+	public void UpdateCurrentTetrimino()
 	{
-		GameObject newTetrimino = dispenser.CreateNext();
-		newTetrimino.transform.SetParent(this.gameObject.transform);
-		this.CurrentTetrimino = newTetrimino.GetComponent<Tetrimino>();
+		if (NextTetrimino == null) {
+			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
+		}
+
+		NextTetrimino.gameObject.SetActive(true);
+		NextTetrimino.transform.SetParent(this.gameObject.transform);
+		this.CurrentTetrimino = NextTetrimino;
+
+		NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
 	}
 
 	public bool IsCurrentTetriminoPiling()
@@ -36,5 +43,14 @@ public class Player : MonoBehaviour {
 	public bool CanCurrentTetriminoMoveLeft()
 	{
 		return map.CanMoveLeft(CurrentTetrimino);
+	}
+
+	// TODO MOVE THIS TO TICK
+	public void Update()
+	{
+		if (IsCurrentTetriminoPiling())
+		{
+			UpdateCurrentTetrimino();
+		}
 	}
 }
