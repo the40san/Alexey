@@ -120,6 +120,16 @@ public class Map : MonoBehaviour {
 		}
 	}
 
+	public int FilledLineCount()
+	{
+		int count = 0;
+		for(int y = 0; y < Height; y++)
+		{
+			if (IsFilledLine(y)) { count++; }
+		}
+		return count;
+	}
+
 	private bool IsFilledLine(int y)
 	{
 		for (int x = 0; x < Width; x++)
