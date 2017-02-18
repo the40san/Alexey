@@ -15,7 +15,7 @@ public class TetriminoShape
 
 	public GameObject CreateTetorimino()
 	{
-		GameObject tetrimino = Spawner.SpawnObject("Tetrimino");
+		Tetrimino tetrimino = Spawner.SpawnObject("Tetrimino").GetComponent<Tetrimino>();
 
 		Assert.AreEqual(shape.GetLength(0), Width);
 		Assert.AreEqual(shape.GetLength(1), Height);
@@ -27,8 +27,8 @@ public class TetriminoShape
 			{
 				if (shape[x,y] != BlockState.Empty)
 				{
-					GameObject block = Spawner.SpawnObject("TetriminoBlock", tetrimino);
-					block.GetComponent<TetriminoBlock>().SetBlockState(shape[x,y]);
+					TetriminoBlock block = Spawner.SpawnObject("TetriminoBlock", tetrimino.gameObject).GetComponent<TetriminoBlock>();
+					block.SetBlockState(shape[x,y]);
 					block.transform.position = new Vector3(x, -y, 0);
 				}
 			}
@@ -36,6 +36,6 @@ public class TetriminoShape
 		// TODO
 		tetrimino.transform.Translate(0.5f, 0.5f, 0);
 
-		return tetrimino;
+		return tetrimino.gameObject;
 	}
 }

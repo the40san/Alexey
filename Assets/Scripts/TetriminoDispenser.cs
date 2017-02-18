@@ -12,10 +12,10 @@ public class TetriminoDispenser : MonoBehaviour {
 		BlockState[,] OTetriminoMap = CreateMap(
 			BlockState.Red,
 			new int[,] {
-				{0, 0, 0, 0},
-				{0, 1, 1, 0},
-				{0, 1, 1, 0},
-				{0, 0, 0, 0}
+				{0, 1, 0, 0},
+				{0, 1, 0, 0},
+				{0, 1, 0, 0},
+				{0, 1, 0, 0}
 			}
 		);
 

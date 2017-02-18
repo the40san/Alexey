@@ -14,5 +14,6 @@ public class GameSuperior : MonoBehaviour {
 		this.map = Spawner.SpawnObject("Map", this.gameObject).GetComponent<Map>();
 
 		this.inputController.AddKeyAction(new PlayerIngameKeyAction(player));
+		player.map = map;
 	}
 }
