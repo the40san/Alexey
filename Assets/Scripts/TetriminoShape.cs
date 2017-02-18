@@ -1,0 +1,39 @@
+﻿using UnityEngine;
+using UnityEngine.Assertions;
+
+public class TetriminoShape
+{
+	public const int Width = 4;
+	public const int Height = 4;
+
+	public BlockState[,] shape;
+
+	public TetriminoShape(BlockState[,] shape)
+	{
+		this.shape = shape;
+	}
+
+	public GameObject CreateTetorimino()
+	{
+		GameObject tetrimino = Spawner.SpawnObject("Tetrimino");
+
+		Assert.AreEqual(shape.GetLength(0), Width);
+		Assert.AreEqual(shape.GetLength(1), Height);
+
+
+		for (int x = 0; x < Width; x++)
+		{
+			for (int y = 0; y < Height; y++)
+			{
+				if (shape[x,y] != BlockState.Empty)
+				{
+					GameObject block = Spawner.SpawnObject("TetriminoBlock", tetrimino);
+					block.GetComponent<TetriminoBlock>().SetBlockState(shape[x,y]);
+					block.transform.position = new Vector3(x, -y, 0);
+				}
+			}
+		}
+
+		return tetrimino;
+	}
+}
