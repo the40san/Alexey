@@ -24,6 +24,7 @@ public class Player : MonoBehaviour {
 			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
 		}
 
+		NextTetrimino.MoveToMapPosition(3, 19); // TODO
 		NextTetrimino.gameObject.SetActive(true);
 		NextTetrimino.transform.SetParent(this.gameObject.transform);
 		this.CurrentTetrimino = NextTetrimino;
