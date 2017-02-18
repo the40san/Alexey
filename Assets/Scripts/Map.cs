@@ -10,10 +10,15 @@ public class Map : MonoBehaviour {
 
 	private BlockState[,] mapState;
 
+	//temporary
+	public GameObject dispenser;
+
+
 	public void Start()
 	{
 		InitMapState();
-		AddBlockAt(0, 0, BlockState.Red);
+		GameObject gameobject = dispenser.GetComponent<TetriminoDispenser>().CreateNext();
+		gameobject.transform.SetParent(this.gameObject.transform);
 	}
 
 	private void InitMapState()
@@ -33,7 +38,8 @@ public class Map : MonoBehaviour {
 		if (this.IsEmptyAt(x, y))
 		{
 			this.mapState[x, y] = state;
-			Spawner.SpawnBlock("TetrominoBlock", state, this.gameObject);
+			var newBlock = Spawner.SpawnObject("TetriminoBlock", this.gameObject);
+			newBlock.GetComponent<TetriminoBlock>().SetBlockState(state);
 		}
 		else
 		{

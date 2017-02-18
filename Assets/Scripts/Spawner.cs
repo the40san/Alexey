@@ -2,15 +2,14 @@
 using UnityEngine.Assertions;
 
 public class Spawner : MonoBehaviour {
-	public static GameObject SpawnBlock(string prefabName, BlockState state, GameObject parent = null)
+	public static GameObject SpawnObject(string prefabName, GameObject parent = null)
 	{
 		Object resource = Resources.Load(ToPrefabPath(prefabName));
 
-		Assert.IsNotNull(resource, "Could not spawn" + prefabName);
+		Assert.IsNotNull(resource, "Could not spawn: " + prefabName);
 
 		GameObject newSpawn = Instantiate(resource) as GameObject;
 		newSpawn.name = newSpawn.name.Replace("(Clone)", "");
-		newSpawn.GetComponent<TetrominoBlock>().SetBlockState(state);
 
 		if (parent != null)
 		{

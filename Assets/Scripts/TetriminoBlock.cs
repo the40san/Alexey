@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-public class TetrominoBlock : MonoBehaviour {
+public class TetriminoBlock : MonoBehaviour {
 	private BlockState blockState;
 
 	void Start()
