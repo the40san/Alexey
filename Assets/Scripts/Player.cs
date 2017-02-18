@@ -52,6 +52,11 @@ public class Player : MonoBehaviour {
 		if (IsCurrentTetriminoPiling())
 		{
 			map.PileTetrimino(CurrentTetrimino);
+			int scoredThisTime = map.FilledLineCount();
+			ScoreBoard.Instance.AddScore(scoredThisTime);
+			map.CleanLines();
+			// EFFECT, THEN
+			map.PackLines();
 			UpdateCurrentTetrimino();
 		}
 	}
