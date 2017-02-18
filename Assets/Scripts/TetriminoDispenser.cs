@@ -2,24 +2,96 @@
 using UnityEngine;
 
 public class TetriminoDispenser : MonoBehaviour {
-
 	private List<TetriminoShape> shapeList;
 
 	public void Awake () {
 		this.shapeList = new List<TetriminoShape>();
 
-		// O-Tetrimio
-		BlockState[,] OTetriminoMap = CreateMap(
-			BlockState.Red,
+		// I-Tetrimio
+		BlockState[,] ITetriminoMap = CreateMap(
+			BlockState.Cyan,
 			new int[,] {
-				{0, 1, 0, 0},
-				{0, 1, 0, 0},
-				{0, 1, 0, 0},
-				{0, 1, 0, 0}
+				{0, 0, 0, 0},
+				{1, 1, 1, 1},
+				{0, 0, 0, 0},
+				{0, 0, 0, 0}
 			}
 		);
 
+		// O-Tetrimio
+		BlockState[,] OTetriminoMap = CreateMap(
+			BlockState.Yellow,
+			new int[,] {
+				{0, 0, 0, 0},
+				{0, 1, 1, 0},
+				{0, 1, 1, 0},
+				{0, 0, 0, 0}
+			}
+		);
+
+		// S-Tetrimio
+		BlockState[,] STetriminoMap = CreateMap(
+			BlockState.YellowGreen,
+			new int[,] {
+				{0, 1, 0, 0},
+				{0, 1, 1, 0},
+				{0, 0, 1, 0},
+				{0, 0, 0, 0}
+			}
+		);
+
+		// Z-Tetrimio
+		BlockState[,] ZTetriminoMap = CreateMap(
+			BlockState.Red,
+			new int[,] {
+				{0, 0, 1, 0},
+				{0, 1, 1, 0},
+				{0, 1, 0, 0},
+				{0, 0, 0, 0}
+			}
+		);
+
+		// J-Tetrimio
+		BlockState[,] JTetriminoMap = CreateMap(
+			BlockState.Blue,
+			new int[,] {
+				{0, 1, 1, 0},
+				{0, 0, 1, 0},
+				{0, 0, 1, 0},
+				{0, 0, 0, 0}
+			}
+		);
+
+		// L-Tetrimio
+		BlockState[,] LTetriminoMap = CreateMap(
+			BlockState.Orange,
+			new int[,] {
+				{0,	0, 1, 0},
+				{0, 0, 1, 0},
+				{0, 1, 1, 0},
+				{0, 0, 0, 0}
+			}
+		);
+
+
+		// T-Tetrimio
+		BlockState[,] TTetriminoMap = CreateMap(
+			BlockState.Purple,
+			new int[,] {
+				{0,	1, 0, 0},
+				{1, 1, 0, 0},
+				{0, 1, 0, 0},
+				{0, 0, 0, 0}
+			}
+		);
+
+		shapeList.Add( new TetriminoShape(ITetriminoMap) );
 		shapeList.Add( new TetriminoShape(OTetriminoMap) );
+		shapeList.Add( new TetriminoShape(STetriminoMap) );
+		shapeList.Add( new TetriminoShape(ZTetriminoMap) );
+		shapeList.Add( new TetriminoShape(JTetriminoMap) );
+		shapeList.Add( new TetriminoShape(LTetriminoMap) );
+		shapeList.Add( new TetriminoShape(TTetriminoMap) );
 	}
 
 	public GameObject CreateNext()
