@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-public class TetriminoBlock : MonoBehaviour {
+public class TetriminoBlock : MonoBehaviour, IMovable {
 	private BlockState blockState;
 
 	public void SetBlockState(BlockState newBlockState)
@@ -38,5 +38,19 @@ public class TetriminoBlock : MonoBehaviour {
 		float z = transform.position.z;
 
 		return new Vector3(x, y, z);
+	}
+
+	public void MoveLeft()
+	{
+		transform.Translate(-1, 0, 0);
+	}
+	public void MoveRight()
+	{
+		transform.Translate(1, 0, 0);
+	}
+
+	public void MoveDown()
+	{
+		transform.Translate(0, -1, 0);
 	}
 }

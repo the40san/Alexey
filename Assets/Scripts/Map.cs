@@ -8,7 +8,7 @@ public class Map : MonoBehaviour {
 	public const int Width = 10;
 	public const int Height = 20;
 
-	private BlockState[,] mapState;
+	private TetriminoBlock[,] mapState;
 
 	public void Start()
 	{
@@ -17,12 +17,12 @@ public class Map : MonoBehaviour {
 
 	private void InitMapState()
 	{
-		mapState = new BlockState[Width, Height];
+		mapState = new TetriminoBlock[Width, Height];
 	}
 
 	public bool IsEmptyAt(int x, int y)
 	{
-		return this.mapState[x, y] == BlockState.Empty;
+		return this.mapState[x, y] == null;
 	}
 
 	public void AddBlockAt(int x, int y, BlockState state)
@@ -31,10 +31,10 @@ public class Map : MonoBehaviour {
 
 		if (this.IsEmptyAt(x, y))
 		{
-			this.mapState[x, y] = state;
 			var newBlock = Spawner.SpawnObject("TetriminoBlock", this.gameObject).GetComponent<TetriminoBlock>();
 			newBlock.SetBlockState(state);
 			newBlock.MoveToMapPosition(x, y);
+			this.mapState[x, y] = newBlock;
 		}
 		else
 		{
@@ -51,7 +51,7 @@ public class Map : MonoBehaviour {
 
 			AddBlockAt((int)mapPosition.x, (int)mapPosition.y, block.GetBlockState());
 		}
-		Spawner.Destroy(tetrimino);
+		Spawner.Destroy(tetrimino.gameObject);
 	}
 
 	public bool IsPiling(Tetrimino tetrimino)
@@ -62,7 +62,7 @@ public class Map : MonoBehaviour {
 			Vector3 mapPosition = block.ToMapPosition();
 
 			if (mapPosition.y == 0 ||
-				mapState[(int)mapPosition.x, (int)mapPosition.y - 1] != BlockState.Empty)
+				!IsEmptyAt((int)mapPosition.x, (int)mapPosition.y - 1))
 				{
 					return true;
 				}
@@ -78,7 +78,7 @@ public class Map : MonoBehaviour {
 			Vector3 mapPosition = block.ToMapPosition();
 
 			if (mapPosition.x + 1 >= Width ||
-				mapState[(int)mapPosition.x + 1, (int)mapPosition.y] != BlockState.Empty)
+				!IsEmptyAt((int)mapPosition.x + 1, (int)mapPosition.y))
 			{
 				return false;
 			}
@@ -95,12 +95,83 @@ public class Map : MonoBehaviour {
 			Vector3 mapPosition = block.ToMapPosition();
 
 			if (mapPosition.x == 0 ||
-				mapState[(int)mapPosition.x - 1, (int)mapPosition.y] != BlockState.Empty)
+				!IsEmptyAt((int)mapPosition.x - 1, (int)mapPosition.y))
 			{
 				return false;
 			}
 		}
 
 		return true;
+	}
+
+	public void CleanLines()
+	{
+		for(int y = 0; y < Height; y++)
+		{
+			if (IsFilledLine(y)) { CleanLine(y); }
+		}
+	}
+
+	private void CleanLine(int y)
+	{
+		for (int x = 0; x < Width; x++) {
+			Spawner.Destroy(mapState[x,y].gameObject);
+			mapState[x,y] = null;
+		}
+	}
+
+	private bool IsFilledLine(int y)
+	{
+		for (int x = 0; x < Width; x++)
+		{
+			if (IsEmptyAt(x, y))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private bool IsEmptyLine(int y)
+	{
+		for (int x = 0; x < Width; x++)
+		{
+			if (!IsEmptyAt(x, y))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public void PackLines()
+	{
+		for(int y = 0; y < Height; y++)
+		{
+			if (IsEmptyLine(y))
+			{
+				PackLine(y);
+			}
+		}
+	}
+
+	private void PackLine(int yBegin)
+	{
+		for (int x = 0; x < Width; x++)
+		{
+			for (int y = yBegin; y < Height - 1; y++)
+			{
+				mapState[x, y] = mapState[x, y + 1];
+
+				if (mapState[x, y] != null)
+				{
+					mapState[x, y].MoveDown();
+				}
+			}
+
+			mapState[x, Height - 1] = null;
+		}
 	}
 }

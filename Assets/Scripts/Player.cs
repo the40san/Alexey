@@ -52,6 +52,9 @@ public class Player : MonoBehaviour {
 		if (IsCurrentTetriminoPiling())
 		{
 			map.PileTetrimino(CurrentTetrimino);
+			map.CleanLines();
+			// EFFECT, THEN
+			map.PackLines();
 			UpdateCurrentTetrimino();
 		}
 	}
