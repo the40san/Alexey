@@ -50,6 +50,7 @@ public class Player : MonoBehaviour {
 	{
 		if (IsCurrentTetriminoPiling())
 		{
+			map.PileTetrimino(CurrentTetrimino);
 			UpdateCurrentTetrimino();
 		}
 	}

@@ -23,6 +23,11 @@ public class TetriminoBlock : MonoBehaviour {
 		}
 	}
 
+	public BlockState GetBlockState()
+	{
+		return blockState;
+	}
+
 	public void MoveToMapPosition(int x, int y)
 	{
 		float nx = x - Map.Width / 2 + 0.5f;

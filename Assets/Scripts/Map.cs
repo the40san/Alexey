@@ -42,6 +42,19 @@ public class Map : MonoBehaviour {
 		}
 	}
 
+	public void PileTetrimino(Tetrimino tetrimino)
+	{
+		foreach(Transform blockTransform in tetrimino.transform)
+		{
+			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
+			Vector3 mapPosition = block.ToMapPosition();
+
+			AddBlockAt((int)mapPosition.x, (int)mapPosition.y, block.GetBlockState());
+			Debug.Log("stack: " + mapPosition.ToString());
+		}
+		Spawner.Destroy(tetrimino);
+	}
+
 	public bool IsPiling(Tetrimino tetrimino)
 	{
 		foreach(Transform blockTransform in tetrimino.transform)
