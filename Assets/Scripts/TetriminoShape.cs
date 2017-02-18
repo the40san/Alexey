@@ -33,6 +33,8 @@ public class TetriminoShape
 				}
 			}
 		}
+		// TODO
+		tetrimino.transform.Translate(0.5f, 0.5f, 0);
 
 		return tetrimino;
 	}
