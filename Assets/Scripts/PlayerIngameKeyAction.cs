@@ -9,16 +9,24 @@
 
 	public void OnKeyLeft()
 	{
-		player.CurrentTetrimino.MoveLeft();
+		if (player.CanCurrentTetriminoMoveLeft())
+		{
+			player.CurrentTetrimino.MoveLeft();
+		}
 	}
 
 	public void OnKeyRight()
 	{
-		player.CurrentTetrimino.MoveRight();
+		if (player.CanCurrentTetriminoMoveRight())
+		{
+			player.CurrentTetrimino.MoveRight();
+		}
 	}
 	public void OnKeyDown()
 	{
-		player.CurrentTetrimino.MoveDown();
+		if (!player.IsCurrentTetriminoPiling()) {
+			player.CurrentTetrimino.MoveDown();
+		}
 	}
 	public void OnKeySpace()
 	{

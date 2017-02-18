@@ -22,4 +22,21 @@ public class TetriminoBlock : MonoBehaviour {
 			this.blockState = newBlockState;
 		}
 	}
+
+	public void MoveToMapPosition(int x, int y)
+	{
+		float nx = x - Map.Width / 2 + 0.5f;
+		float ny = y - Map.Height / 2 + 0.5f;
+		float nz = 0;
+		transform.position = new Vector3(nx, ny, nz);
+	}
+
+	public Vector3 ToMapPosition()
+	{
+		float x = transform.position.x + Map.Width / 2 - 0.5f;
+		float y = transform.position.y + Map.Height / 2 - 0.5f;
+		float z = transform.position.z;
+
+		return new Vector3(x, y, z);
+	}
 }

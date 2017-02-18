@@ -32,12 +32,60 @@ public class Map : MonoBehaviour {
 		if (this.IsEmptyAt(x, y))
 		{
 			this.mapState[x, y] = state;
-			var newBlock = Spawner.SpawnObject("TetriminoBlock", this.gameObject);
-			newBlock.GetComponent<TetriminoBlock>().SetBlockState(state);
+			var newBlock = Spawner.SpawnObject("TetriminoBlock", this.gameObject).GetComponent<TetriminoBlock>();
+			newBlock.SetBlockState(state);
+			newBlock.MoveToMapPosition(x, y);
 		}
 		else
 		{
 			throw new BlockStackingException();
 		}
+	}
+
+	public bool IsPiling(Tetrimino tetrimino)
+	{
+		foreach(Transform blockTransform in tetrimino.transform)
+		{
+			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
+			Vector3 mapPosition = block.ToMapPosition();
+
+			if (mapPosition.y == 0 ||
+				mapState[(int)mapPosition.x, (int)mapPosition.y - 1] != BlockState.Empty)
+				{
+					return true;
+				}
+		}
+		return false;
+	}
+
+	public bool CanMoveRight(Tetrimino tetrimino)
+	{
+		foreach(Transform blockTransform in tetrimino.transform)
+		{
+			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
+			Vector3 mapPosition = block.ToMapPosition();
+
+			if (mapPosition.x + 1 >= Width)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+	public bool CanMoveLeft(Tetrimino tetrimino)
+	{
+		foreach(Transform blockTransform in tetrimino.transform)
+		{
+			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
+			Vector3 mapPosition = block.ToMapPosition();
+
+			if (mapPosition.x == 0)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
