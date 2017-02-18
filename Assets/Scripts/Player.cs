@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 
 public class Player : MonoBehaviour {
-
-	private Tetrimino currentTetrimino;
+	public Tetrimino CurrentTetrimino {get; set;}
 	private TetriminoDispenser dispenser;
 
 	public void Start () {
 		InitTetriminoDispenser();
-		InitCurrentTetrimino();
+		CreateNextTetrimino();
 	}
 
 	private void InitTetriminoDispenser()
@@ -16,13 +15,10 @@ public class Player : MonoBehaviour {
 		this.dispenser = newDispenser.GetComponent<TetriminoDispenser>();
 	}
 
-	private void InitCurrentTetrimino()
+	public void CreateNextTetrimino()
 	{
 		GameObject newTetrimino = dispenser.CreateNext();
 		newTetrimino.transform.SetParent(this.gameObject.transform);
-	}
-
-	void Update () {
-
+		this.CurrentTetrimino = newTetrimino.GetComponent<Tetrimino>();
 	}
 }
