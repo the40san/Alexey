@@ -10,15 +10,9 @@ public class Map : MonoBehaviour {
 
 	private BlockState[,] mapState;
 
-	//temporary
-	public GameObject dispenser;
-
-
 	public void Start()
 	{
 		InitMapState();
-		GameObject gameobject = dispenser.GetComponent<TetriminoDispenser>().CreateNext();
-		gameobject.transform.SetParent(this.gameObject.transform);
 	}
 
 	private void InitMapState()

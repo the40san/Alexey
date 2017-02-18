@@ -5,7 +5,7 @@ public class TetriminoDispenser : MonoBehaviour {
 
 	private List<TetriminoShape> shapeList;
 
-	public void Start () {
+	public void Awake () {
 		this.shapeList = new List<TetriminoShape>();
 
 		// O-Tetrimio
