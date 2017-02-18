@@ -78,10 +78,12 @@ public class Map : MonoBehaviour {
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
 			Vector3 mapPosition = block.ToMapPosition();
 
-			if (mapPosition.x + 1 >= Width)
+			if (mapPosition.x + 1 >= Width ||
+				mapState[(int)mapPosition.x + 1, (int)mapPosition.y] != BlockState.Empty)
 			{
 				return false;
 			}
+
 		}
 
 		return true;
@@ -93,7 +95,8 @@ public class Map : MonoBehaviour {
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
 			Vector3 mapPosition = block.ToMapPosition();
 
-			if (mapPosition.x == 0)
+			if (mapPosition.x == 0 ||
+				mapState[(int)mapPosition.x - 1, (int)mapPosition.y] != BlockState.Empty)
 			{
 				return false;
 			}
