@@ -50,7 +50,6 @@ public class Map : MonoBehaviour {
 			Vector3 mapPosition = block.ToMapPosition();
 
 			AddBlockAt((int)mapPosition.x, (int)mapPosition.y, block.GetBlockState());
-			Debug.Log("stack: " + mapPosition.ToString());
 		}
 		Spawner.Destroy(tetrimino);
 	}

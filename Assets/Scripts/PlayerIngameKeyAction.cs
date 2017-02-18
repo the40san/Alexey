@@ -30,6 +30,9 @@
 	}
 	public void OnKeySpace()
 	{
-		player.CurrentTetrimino.MoveDown();
+		while(!player.IsCurrentTetriminoPiling())
+		{
+			player.CurrentTetrimino.MoveDown();
+		}
 	}
 }
