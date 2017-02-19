@@ -31,7 +31,7 @@ public class TetriminoShape
 				{
 					TetriminoBlock block = Spawner.SpawnObject("TetriminoBlock", tetrimino.gameObject).GetComponent<TetriminoBlock>();
 					block.SetBlockState(shape[x,y]);
-					block.transform.position = new Vector3(x - Width / 2, y - Height / 2, 0);
+					block.transform.position = new Vector3(-x, -y, 0);
 				}
 			}
 		}
