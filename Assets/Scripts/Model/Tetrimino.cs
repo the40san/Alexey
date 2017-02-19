@@ -72,6 +72,6 @@ public class Tetrimino : MonoBehaviour, IMovable, ITurnable {
 
 	public void MoveToMapPosition(int x, int y)
 	{
-		transform.position = Map.MapPositionToWorld(x, y);
+		transform.position = Position.MapToWorld(x, y);
 	}
 }

@@ -48,7 +48,7 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			AddBlockAt((int)mapPosition.x, (int)mapPosition.y, block.GetBlockState());
 		}
@@ -60,7 +60,7 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			if (mapPosition.y == 0 ||
 				!IsEmptyAt((int)mapPosition.x, (int)mapPosition.y - 1))
@@ -76,7 +76,7 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			if (mapPosition.x + 1 >= Width ||
 				!IsEmptyAt((int)mapPosition.x + 1, (int)mapPosition.y))
@@ -93,7 +93,7 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			if (mapPosition.x == 0 ||
 				!IsEmptyAt((int)mapPosition.x - 1, (int)mapPosition.y))
@@ -111,7 +111,7 @@ public class Map : MonoBehaviour {
 
 		foreach(Vector3 pos in worldPositions)
 		{
-			Vector3 mapPosition = WorldToMapPosition(pos);
+			Vector3 mapPosition = Position.WorldToMap(pos);
 			if (!IsInMap(pos) || !IsEmptyAt((int)mapPosition.x, (int)mapPosition.y))
 			{
 				return false;
@@ -202,26 +202,9 @@ public class Map : MonoBehaviour {
 		}
 	}
 
-	public static Vector3 WorldToMapPosition(Vector3 position)
+	private bool IsInMap(Vector3 worldPosition)
 	{
-		return new Vector3(
-			position.x + Map.Width / 2 - 0.5f,
-			position.y + Map.Height/ 2 - 0.5f,
-			0
-		);
-	}
-
-	public static Vector3 MapPositionToWorld(int x, int y)
-	{
-		float nx = x - Map.Width / 2 + 0.5f;
-		float ny = y - Map.Height / 2 + 0.5f;
-		float nz = 0;
-		return new Vector3(nx, ny, nz);
-	}
-
-	public static bool IsInMap(Vector3 worldPosition)
-	{
-		Vector3 mapPosition = WorldToMapPosition(worldPosition);
+		Vector3 mapPosition = Position.WorldToMap(worldPosition);
 		if (mapPosition.x < 0 ||
 			mapPosition.x > Width ||
 			mapPosition.y < 0 ||
