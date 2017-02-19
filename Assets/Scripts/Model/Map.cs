@@ -209,9 +209,9 @@ public class Map : MonoBehaviour {
 	{
 		Vector3 mapPosition = Position.WorldToMap(worldPosition);
 		if (mapPosition.x < 0 ||
-			mapPosition.x > Width ||
+			mapPosition.x >= Width ||
 			mapPosition.y < 0 ||
-			mapPosition.y > Height
+			mapPosition.y >= Height
 		)
 		{
 			return false;
