@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using System.Collections.Generic;
 
 public class Map : MonoBehaviour {
 
@@ -104,6 +105,22 @@ public class Map : MonoBehaviour {
 		return true;
 	}
 
+	public bool CanTurn(ITurnable turnable, TurnDirection direction)
+	{
+		List<Vector3> worldPositions = turnable.TurnedWorldPositions(direction);
+
+		foreach(Vector3 pos in worldPositions)
+		{
+			Vector3 mapPosition = WorldToMapPosition(pos);
+			if (!IsInMap(pos) || !IsEmptyAt((int)mapPosition.x, (int)mapPosition.y))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public void CleanLines()
 	{
 		for(int y = 0; y < Height; y++)
@@ -183,5 +200,36 @@ public class Map : MonoBehaviour {
 
 			mapState[x, Height - 1] = null;
 		}
+	}
+
+	public static Vector3 WorldToMapPosition(Vector3 position)
+	{
+		return new Vector3(
+			position.x + Map.Width / 2 - 0.5f,
+			position.y + Map.Height/ 2 - 0.5f,
+			0
+		);
+	}
+
+	public static Vector3 MapPositionToWorld(int x, int y)
+	{
+		float nx = x - Map.Width / 2 + 0.5f;
+		float ny = y - Map.Height / 2 + 0.5f;
+		float nz = 0;
+		return new Vector3(nx, ny, nz);
+	}
+
+	public static bool IsInMap(Vector3 worldPosition)
+	{
+		Vector3 mapPosition = WorldToMapPosition(worldPosition);
+		if (mapPosition.x < 0 ||
+			mapPosition.x > Width ||
+			mapPosition.y < 0 ||
+			mapPosition.y > Height
+		)
+		{
+			return false;
+		}
+		return true;
 	}
 }

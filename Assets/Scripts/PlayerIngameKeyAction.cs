@@ -39,11 +39,15 @@
 
 	public void OnKeyTurnLeft()
 	{
-		player.CurrentTetrimino.TurnLeft();
+		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
+			player.CurrentTetrimino.TurnLeft();
+		}
 	}
 
 	public void OnKeyTurnRight()
 	{
-		player.CurrentTetrimino.TurnRight();
+		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
+			player.CurrentTetrimino.TurnRight();
+		}
 	}
 }
