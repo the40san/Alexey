@@ -18,16 +18,16 @@ public class Tetrimino : MonoBehaviour, IMovable, ITurnable {
 
 	public void MoveLeft()
 	{
-		transform.Translate(-1, 0, 0);
+		transform.Translate(Vector3.left);
 	}
 	public void MoveRight()
 	{
-		transform.Translate(1, 0, 0);
+		transform.Translate(Vector3.right);
 	}
 
 	public void MoveDown()
 	{
-		transform.Translate(0, -1, 0);
+		transform.Translate(Vector3.down);
 	}
 
 	public void TurnLeft()

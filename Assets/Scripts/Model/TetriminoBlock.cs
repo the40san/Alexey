@@ -33,15 +33,15 @@ public class TetriminoBlock : MonoBehaviour, IMovable {
 
 	public void MoveLeft()
 	{
-		transform.Translate(-1, 0, 0);
+		transform.Translate(Vector3.left);
 	}
 	public void MoveRight()
 	{
-		transform.Translate(1, 0, 0);
+		transform.Translate(Vector3.right);
 	}
 
 	public void MoveDown()
 	{
-		transform.Translate(0, -1, 0);
+		transform.Translate(Vector3.down);
 	}
 }
