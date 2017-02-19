@@ -5,7 +5,7 @@
 	Cyan = 0x00FFFF,
 	Yellow = 0xFFFF00,
 	YellowGreen = 0x9ACD32,
-	Blue = 0x00FF00,
+	Blue = 0x0000FF,
 	Orange = 0xFFA500,
 	Purple = 0x8E68A6
 }

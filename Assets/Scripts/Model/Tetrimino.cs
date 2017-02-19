@@ -16,20 +16,18 @@ public class Tetrimino : MonoBehaviour, IMovable, ITurnable {
 		}
 	}
 
-
-
 	public void MoveLeft()
 	{
-		transform.Translate(-1, 0, 0);
+		transform.Translate(Vector3.left);
 	}
 	public void MoveRight()
 	{
-		transform.Translate(1, 0, 0);
+		transform.Translate(Vector3.right);
 	}
 
 	public void MoveDown()
 	{
-		transform.Translate(0, -1, 0);
+		transform.Translate(Vector3.down);
 	}
 
 	public void TurnLeft()
@@ -74,6 +72,6 @@ public class Tetrimino : MonoBehaviour, IMovable, ITurnable {
 
 	public void MoveToMapPosition(int x, int y)
 	{
-		transform.position = Map.MapPositionToWorld(x, y);
+		transform.position = Position.MapToWorld(x, y);
 	}
 }
