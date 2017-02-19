@@ -45,5 +45,19 @@ public class InputController : MonoBehaviour {
 				a.OnKeySpace();
 			}
 		}
+		else if (Input.GetKeyDown(KeyCode.E))
+		{
+			foreach(var a in keyActions)
+			{
+				a.OnKeyTurnRight();
+			}
+		}
+		else if (Input.GetKeyDown(KeyCode.Q))
+		{
+			foreach(var a in keyActions)
+			{
+				a.OnKeyTurnLeft();
+			}
+		}
     }
 }

@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using System.Collections.Generic;
 
 public class Map : MonoBehaviour {
-
 	public class BlockStackingException : System.ApplicationException {}
-
 	public const int Width = 10;
 	public const int Height = 20;
-
 	private TetriminoBlock[,] mapState;
 
 	public void Start()
@@ -23,6 +21,11 @@ public class Map : MonoBehaviour {
 	public bool IsEmptyAt(int x, int y)
 	{
 		return this.mapState[x, y] == null;
+	}
+
+	public bool IsEmptyAt(Vector3 mapPosition)
+	{
+		return IsEmptyAt((int)mapPosition.x, (int)mapPosition.y);
 	}
 
 	public void AddBlockAt(int x, int y, BlockState state)
@@ -47,7 +50,7 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			AddBlockAt((int)mapPosition.x, (int)mapPosition.y, block.GetBlockState());
 		}
@@ -59,10 +62,10 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			if (mapPosition.y == 0 ||
-				!IsEmptyAt((int)mapPosition.x, (int)mapPosition.y - 1))
+				!IsEmptyAt(mapPosition + Vector3.down))
 				{
 					return true;
 				}
@@ -75,10 +78,10 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			if (mapPosition.x + 1 >= Width ||
-				!IsEmptyAt((int)mapPosition.x + 1, (int)mapPosition.y))
+				!IsEmptyAt(mapPosition + Vector3.right))
 			{
 				return false;
 			}
@@ -92,10 +95,26 @@ public class Map : MonoBehaviour {
 		foreach(Transform blockTransform in tetrimino.transform)
 		{
 			var block = blockTransform.gameObject.GetComponent<TetriminoBlock>();
-			Vector3 mapPosition = block.ToMapPosition();
+			Vector3 mapPosition = Position.WorldToMap(block.transform.position);
 
 			if (mapPosition.x == 0 ||
-				!IsEmptyAt((int)mapPosition.x - 1, (int)mapPosition.y))
+				!IsEmptyAt(mapPosition + Vector3.left))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public bool CanTurn(ITurnable turnable, TurnDirection direction)
+	{
+		List<Vector3> worldPositions = turnable.TurnedWorldPositions(direction);
+
+		foreach(Vector3 pos in worldPositions)
+		{
+			Vector3 mapPosition = Position.WorldToMap(pos);
+			if (!IsInMap(pos) || !IsEmptyAt(mapPosition))
 			{
 				return false;
 			}
@@ -158,11 +177,12 @@ public class Map : MonoBehaviour {
 
 	public void PackLines()
 	{
-		for(int y = 0; y < Height; y++)
+		for(int y = 0; y < Height - 1; y++)
 		{
-			if (IsEmptyLine(y))
+			if (IsEmptyLine(y) && !IsEmptyLine(y + 1))
 			{
 				PackLine(y);
+				y = -1; // Restart Loop for Double, Triple, Tetris
 			}
 		}
 	}
@@ -183,5 +203,19 @@ public class Map : MonoBehaviour {
 
 			mapState[x, Height - 1] = null;
 		}
+	}
+
+	private bool IsInMap(Vector3 worldPosition)
+	{
+		Vector3 mapPosition = Position.WorldToMap(worldPosition);
+		if (mapPosition.x < 0 ||
+			mapPosition.x >= Width ||
+			mapPosition.y < 0 ||
+			mapPosition.y >= Height
+		)
+		{
+			return false;
+		}
+		return true;
 	}
 }

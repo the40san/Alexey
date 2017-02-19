@@ -31,26 +31,17 @@ public class TetriminoBlock : MonoBehaviour, IMovable {
 		transform.position = new Vector3(nx, ny, nz);
 	}
 
-	public Vector3 ToMapPosition()
-	{
-		float x = transform.position.x + Map.Width / 2 - 0.5f;
-		float y = transform.position.y + Map.Height / 2 - 0.5f;
-		float z = transform.position.z;
-
-		return new Vector3(x, y, z);
-	}
-
 	public void MoveLeft()
 	{
-		transform.Translate(-1, 0, 0);
+		transform.Translate(Vector3.left);
 	}
 	public void MoveRight()
 	{
-		transform.Translate(1, 0, 0);
+		transform.Translate(Vector3.right);
 	}
 
 	public void MoveDown()
 	{
-		transform.Translate(0, -1, 0);
+		transform.Translate(Vector3.down);
 	}
 }
