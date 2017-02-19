@@ -177,7 +177,7 @@ public class Map : MonoBehaviour {
 
 	public void PackLines()
 	{
-		for(int y = 0; y < Height; y++)
+		for(int y = Height - 1; y > 0; y--)
 		{
 			if (IsEmptyLine(y))
 			{
