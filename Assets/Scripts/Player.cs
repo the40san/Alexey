@@ -46,6 +46,11 @@ public class Player : MonoBehaviour {
 		return map.CanMoveLeft(CurrentTetrimino);
 	}
 
+	public bool CanCurrentTetriminoTurn(TurnDirection direction)
+	{
+		return map.CanTurn(CurrentTetrimino, direction);
+	}
+
 	// TODO MOVE THIS TO TICK
 	public void Update()
 	{

@@ -22,6 +22,7 @@
 			player.CurrentTetrimino.MoveRight();
 		}
 	}
+
 	public void OnKeyDown()
 	{
 		if (!player.IsCurrentTetriminoPiling()) {
@@ -33,6 +34,20 @@
 		while(!player.IsCurrentTetriminoPiling())
 		{
 			player.CurrentTetrimino.MoveDown();
+		}
+	}
+
+	public void OnKeyTurnLeft()
+	{
+		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
+			player.CurrentTetrimino.TurnLeft();
+		}
+	}
+
+	public void OnKeyTurnRight()
+	{
+		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
+			player.CurrentTetrimino.TurnRight();
 		}
 	}
 }

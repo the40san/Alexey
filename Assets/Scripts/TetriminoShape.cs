@@ -7,10 +7,12 @@ public class TetriminoShape
 	public const int Height = 4;
 
 	public BlockState[,] shape;
+	public Vector3 turnAxis;
 
-	public TetriminoShape(BlockState[,] shape)
+	public TetriminoShape(BlockState[,] shape, Vector3 turnAxis)
 	{
 		this.shape = shape;
+		this.turnAxis = turnAxis;
 	}
 
 	public GameObject CreateTetorimino()
@@ -29,12 +31,13 @@ public class TetriminoShape
 				{
 					TetriminoBlock block = Spawner.SpawnObject("TetriminoBlock", tetrimino.gameObject).GetComponent<TetriminoBlock>();
 					block.SetBlockState(shape[x,y]);
-					block.transform.position = new Vector3(x, -y, 0);
+					block.transform.position = new Vector3(x - Width / 2, y - Height / 2, 0);
 				}
 			}
 		}
 		// TODO
 		tetrimino.transform.Translate(0.5f, 0.5f, 0);
+		tetrimino.TurnAxis = turnAxis;
 
 		return tetrimino.gameObject;
 	}

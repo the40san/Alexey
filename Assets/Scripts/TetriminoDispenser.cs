@@ -85,13 +85,13 @@ public class TetriminoDispenser : MonoBehaviour {
 			}
 		);
 
-		shapeList.Add( new TetriminoShape(ITetriminoMap) );
-		shapeList.Add( new TetriminoShape(OTetriminoMap) );
-		shapeList.Add( new TetriminoShape(STetriminoMap) );
-		shapeList.Add( new TetriminoShape(ZTetriminoMap) );
-		shapeList.Add( new TetriminoShape(JTetriminoMap) );
-		shapeList.Add( new TetriminoShape(LTetriminoMap) );
-		shapeList.Add( new TetriminoShape(TTetriminoMap) );
+		shapeList.Add( new TetriminoShape(ITetriminoMap, new Vector3(1, 0, 0) ));
+		shapeList.Add( new TetriminoShape(OTetriminoMap, new Vector3(0.5f, 0.5f, 0) ));
+		shapeList.Add( new TetriminoShape(STetriminoMap, new Vector3(1, 1, 0) ));
+		shapeList.Add( new TetriminoShape(ZTetriminoMap, new Vector3(1, 1, 0) ));
+		shapeList.Add( new TetriminoShape(JTetriminoMap, new Vector3(1, 0, 0) ));
+		shapeList.Add( new TetriminoShape(LTetriminoMap, new Vector3(1, 0, 0) ));
+		shapeList.Add( new TetriminoShape(TTetriminoMap, new Vector3(1, 1, 0) ));
 	}
 
 	public GameObject CreateNext()
