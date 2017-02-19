@@ -8,7 +8,7 @@ public class TetriminoDispenser : MonoBehaviour {
 		this.shapeList = new List<TetriminoShape>();
 
 		// I-Tetrimio
-		BlockState[,] ITetriminoMap = CreateMap(
+		BlockState[,] ITetriminoMap = CreateBlockMap(
 			BlockState.Cyan,
 			new int[,] {
 				{0, 0, 0, 0},
@@ -19,7 +19,7 @@ public class TetriminoDispenser : MonoBehaviour {
 		);
 
 		// O-Tetrimio
-		BlockState[,] OTetriminoMap = CreateMap(
+		BlockState[,] OTetriminoMap = CreateBlockMap(
 			BlockState.Yellow,
 			new int[,] {
 				{0, 0, 0, 0},
@@ -30,7 +30,7 @@ public class TetriminoDispenser : MonoBehaviour {
 		);
 
 		// S-Tetrimio
-		BlockState[,] STetriminoMap = CreateMap(
+		BlockState[,] STetriminoMap = CreateBlockMap(
 			BlockState.YellowGreen,
 			new int[,] {
 				{0, 1, 0, 0},
@@ -41,7 +41,7 @@ public class TetriminoDispenser : MonoBehaviour {
 		);
 
 		// Z-Tetrimio
-		BlockState[,] ZTetriminoMap = CreateMap(
+		BlockState[,] ZTetriminoMap = CreateBlockMap(
 			BlockState.Red,
 			new int[,] {
 				{0, 0, 1, 0},
@@ -52,7 +52,7 @@ public class TetriminoDispenser : MonoBehaviour {
 		);
 
 		// J-Tetrimio
-		BlockState[,] JTetriminoMap = CreateMap(
+		BlockState[,] JTetriminoMap = CreateBlockMap(
 			BlockState.Blue,
 			new int[,] {
 				{0, 1, 1, 0},
@@ -63,7 +63,7 @@ public class TetriminoDispenser : MonoBehaviour {
 		);
 
 		// L-Tetrimio
-		BlockState[,] LTetriminoMap = CreateMap(
+		BlockState[,] LTetriminoMap = CreateBlockMap(
 			BlockState.Orange,
 			new int[,] {
 				{0,	0, 1, 0},
@@ -75,7 +75,7 @@ public class TetriminoDispenser : MonoBehaviour {
 
 
 		// T-Tetrimio
-		BlockState[,] TTetriminoMap = CreateMap(
+		BlockState[,] TTetriminoMap = CreateBlockMap(
 			BlockState.Purple,
 			new int[,] {
 				{0,	1, 0, 0},
@@ -99,7 +99,7 @@ public class TetriminoDispenser : MonoBehaviour {
 		return shapeList[Random.Range(0, shapeList.Count)].CreateTetorimino();
 	}
 
-	private BlockState[,] CreateMap(BlockState state, int[,] map)
+	private BlockState[,] CreateBlockMap(BlockState state, int[,] map)
 	{
 		BlockState[,] result = new BlockState [TetriminoShape.Width, TetriminoShape.Height];
 
