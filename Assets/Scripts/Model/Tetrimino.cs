@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public class Tetrimino : MonoBehaviour, IMovable, ITurnable {
-	public Vector3 TurnAxis {get;set;}
+		public Vector3 TurnAxis {get;set;}
 
 	public void MoveLeft()
 	{
