@@ -2,19 +2,7 @@
 using System.Collections.Generic;
 
 public class Tetrimino : MonoBehaviour, IMovable, ITurnable {
-	public Vector3 _turnAxis;
-	public Vector3 TurnAxis {
-		get {
-			if (this._turnAxis == null)
-			{
-				this._turnAxis = new Vector3();
-			}
-			return this._turnAxis;
-		}
-		set {
-			this._turnAxis = value;
-		}
-	}
+		public Vector3 TurnAxis {get;set;}
 
 	public void MoveLeft()
 	{
