@@ -35,10 +35,15 @@ public class ScoreBoard : MonoBehaviour {
 			return;
 		}
 		DontDestroyOnLoad(gameObject);
+		Clear();
+	}
 
+	public void Clear()
+	{
 		this.highScore = 0;
 		this.currentScore = 0;
 	}
+
 
 	public void AddScore(int newScore)
 	{
