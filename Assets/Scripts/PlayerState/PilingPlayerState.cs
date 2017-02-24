@@ -1,15 +1,28 @@
 ﻿public class PilingPlayerState : IPlayerState
 {
 	public const int pilingFrame = 30;
+
+	private int frameCount;
+
+
 	private Player player;
 	public PilingPlayerState(Player player)
 	{
 		this.player = player;
+		this.frameCount = 0;
 	}
 
-	public void OnUpdate(int frameCount)
+	public void OnUpdate(int _frameCount)
 	{
-		// do nothing
+		// Clear frameCount when you used rotate or move key
+		if (player.ClearPilingFrame)
+		{
+			player.ClearPilingFrame = false;
+			this.frameCount = 0;
+		}
+		else {
+			this.frameCount++;
+		}
 	}
 
 	public bool CanTransitionPreviousState()
@@ -17,8 +30,8 @@
 		return !player.IsCurrentTetriminoPiling();
 	}
 
-	public bool CanTransitionNextState(int frameCount)
+	public bool CanTransitionNextState(int _frameCount)
 	{
-		return player.SkipPilingState || frameCount >= pilingFrame;
+		return player.SkipPilingState || this.frameCount >= pilingFrame;
 	}
 }

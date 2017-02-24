@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	private PlayerSequence playerSequence;
 
 	public bool SkipPilingState {get; set;}
+	public bool ClearPilingFrame {get; set;}
 
 	public Map map;
 
