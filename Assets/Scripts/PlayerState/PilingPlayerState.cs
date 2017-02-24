@@ -19,6 +19,6 @@
 
 	public bool CanTransitionNextState(int frameCount)
 	{
-		return frameCount >= pilingFrame;
+		return player.SkipPilingState || frameCount >= pilingFrame;
 	}
 }

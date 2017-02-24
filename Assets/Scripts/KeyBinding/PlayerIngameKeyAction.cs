@@ -35,6 +35,7 @@
 		{
 			player.CurrentTetrimino.MoveDown();
 		}
+		player.SkipPilingState = true;
 	}
 
 	public void OnKeyTurnLeft()

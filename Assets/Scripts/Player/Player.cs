@@ -7,6 +7,8 @@ public class Player : MonoBehaviour {
 
 	private PlayerSequence playerSequence;
 
+	public bool SkipPilingState {get; set;}
+
 	public Map map;
 
 	public void Start () {
