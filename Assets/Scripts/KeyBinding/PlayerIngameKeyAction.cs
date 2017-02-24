@@ -12,7 +12,6 @@
 		if (player.CanCurrentTetriminoMoveLeft())
 		{
 			player.CurrentTetrimino.MoveLeft();
-			player.ClearPilingFrame = true;
 		}
 	}
 
@@ -21,7 +20,6 @@
 		if (player.CanCurrentTetriminoMoveRight())
 		{
 			player.CurrentTetrimino.MoveRight();
-			player.ClearPilingFrame = true;
 		}
 	}
 
@@ -37,14 +35,12 @@
 		{
 			player.CurrentTetrimino.MoveDown();
 		}
-		player.SkipPilingState = true;
 	}
 
 	public void OnKeyTurnLeft()
 	{
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
 			player.CurrentTetrimino.TurnLeft();
-			player.ClearPilingFrame = true;
 		}
 	}
 
@@ -52,7 +48,6 @@
 	{
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
 			player.CurrentTetrimino.TurnRight();
-			player.ClearPilingFrame = true;
 		}
 	}
 }

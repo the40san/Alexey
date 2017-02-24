@@ -5,31 +5,17 @@ public class Player : MonoBehaviour {
 	public Tetrimino NextTetrimino {get; set;}
 	private TetriminoDispenser dispenser;
 
-	private PlayerSequence playerSequence;
-
-	public bool SkipPilingState {get; set;}
-	public bool ClearPilingFrame {get; set;}
-
 	public Map map;
 
 	public void Start () {
 		InitTetriminoDispenser();
-		InitPlayerSequence();
+		UpdateCurrentTetrimino();
 	}
 
 	private void InitTetriminoDispenser()
 	{
 		GameObject newDispenser = Spawner.SpawnObject("TetriminoDispenser", gameObject);
 		this.dispenser = newDispenser.GetComponent<TetriminoDispenser>();
-	}
-
-	private void InitPlayerSequence()
-	{
-		this.playerSequence = new PlayerSequence();
-		this.playerSequence.CreatingNewTetriminoState = new CreatingNewTetriminoPlayerState(this);
-		this.playerSequence.DroppingState = new DroppingPlayerState(this);
-		this.playerSequence.PilingState = new PilingPlayerState(this);
-		this.playerSequence.CleaningState = new CleaningPlayerState(this);
 	}
 
 	public void UpdateCurrentTetrimino()
@@ -68,17 +54,15 @@ public class Player : MonoBehaviour {
 	// TODO MOVE THIS TO TICK
 	public void Update()
 	{
-		this.playerSequence.Update();
-	}
-
-	public void PileCurrentTetrimino()
-	{
-		map.PileTetrimino(CurrentTetrimino);
-		int scoredThisTime = map.FilledLineCount();
-		ScoreBoard.Instance.AddScore(scoredThisTime);
-
-		map.CleanLines();
-		// EFFECT, THEN
-		map.PackLines();
+		if (IsCurrentTetriminoPiling())
+		{
+			map.PileTetrimino(CurrentTetrimino);
+			int scoredThisTime = map.FilledLineCount();
+			ScoreBoard.Instance.AddScore(scoredThisTime);
+			map.CleanLines();
+			// EFFECT, THEN
+			map.PackLines();
+			UpdateCurrentTetrimino();
+		}
 	}
 }
