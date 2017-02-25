@@ -15,7 +15,7 @@ public class Map : MonoBehaviour {
 
 	private void InitMapState()
 	{
-		mapState = new TetriminoBlock[Width, Height];
+		mapState = new TetriminoBlock[Width, Height + 4];
 	}
 
 	public bool IsEmptyAt(int x, int y)

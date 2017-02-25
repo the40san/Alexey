@@ -9,12 +9,12 @@ public class Player : MonoBehaviour {
 
 	public bool SkipPilingState {get; set;}
 	public bool ClearPilingFrame {get; set;}
+	public bool GameOver {get;set;}
 
 	public Map map;
 
 	public const int TetriminoSpawnX = 6;
 	public const int TetriminoSpawnY = 20;
-
 
 	public void Start () {
 		InitTetriminoDispenser();
@@ -40,14 +40,15 @@ public class Player : MonoBehaviour {
 	{
 		if (NextTetrimino == null) {
 			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
+			NextTetrimino.transform.SetParent(this.gameObject.transform);
 		}
 
 		NextTetrimino.MoveToMapPosition(TetriminoSpawnX, TetriminoSpawnY);
 		NextTetrimino.gameObject.SetActive(true);
-		NextTetrimino.transform.SetParent(this.gameObject.transform);
 		this.CurrentTetrimino = NextTetrimino;
 
 		NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
+		NextTetrimino.transform.SetParent(this.gameObject.transform);
 	}
 
 	public bool IsCurrentTetriminoPiling()
@@ -69,15 +70,25 @@ public class Player : MonoBehaviour {
 		return map.CanTurn(CurrentTetrimino, direction);
 	}
 
-	// TODO MOVE THIS TO TICK
 	public void Update()
 	{
-		this.playerSequence.Update();
+		if (!GameOver) {
+			this.playerSequence.Update();
+		}
 	}
 
 	public void PileCurrentTetrimino()
 	{
-		map.PileTetrimino(CurrentTetrimino);
+		try
+		{
+			map.PileTetrimino(CurrentTetrimino);
+		}
+		catch (Map.BlockStackingException)
+		{
+			this.GameOver = true;
+			GameSuperior.Instance.EndTetris();
+			return;
+		}
 		int scoredThisTime = map.FilledLineCount();
 		ScoreBoard.Instance.AddScore(scoredThisTime);
 
