@@ -15,7 +15,14 @@ public class Tetrimino : MonoBehaviour, IMovable, ITurnable {
 
 	public void MoveDown()
 	{
-		transform.Translate(Vector3.down);
+		try {
+			transform.Translate(Vector3.down);
+		}
+		catch
+		{
+			Debug.Log("asadf");
+
+		}
 	}
 
 	public void TurnLeft()

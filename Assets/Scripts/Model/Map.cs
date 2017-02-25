@@ -8,7 +8,7 @@ public class Map : MonoBehaviour {
 	public const int Height = 20;
 	private TetriminoBlock[,] mapState;
 
-	public void Start()
+	public void Awake()
 	{
 		InitMapState();
 	}
@@ -54,7 +54,6 @@ public class Map : MonoBehaviour {
 
 			AddBlockAt((int)mapPosition.x, (int)mapPosition.y, block.GetBlockState());
 		}
-		Spawner.Destroy(tetrimino.gameObject);
 	}
 
 	public bool IsPiling(Tetrimino tetrimino)

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 	public const int TetriminoSpawnX = 6;
 	public const int TetriminoSpawnY = 20;
 
-	public void Start () {
+	public void Awake () {
 		InitTetriminoDispenser();
 		InitPlayerSequence();
 	}
@@ -38,7 +38,13 @@ public class Player : MonoBehaviour {
 
 	public void UpdateCurrentTetrimino()
 	{
-		if (NextTetrimino == null) {
+		if (CurrentTetrimino != null)
+		{
+			Spawner.Destroy(this.CurrentTetrimino.gameObject);
+		}
+
+		if (NextTetrimino == null)
+		{
 			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
 			NextTetrimino.transform.SetParent(this.gameObject.transform);
 		}
@@ -53,21 +59,21 @@ public class Player : MonoBehaviour {
 
 	public bool IsCurrentTetriminoPiling()
 	{
-		return map.IsPiling(CurrentTetrimino);
+		return CurrentTetrimino != null && map.IsPiling(CurrentTetrimino);
 	}
 	public bool CanCurrentTetriminoMoveRight()
 	{
-		return map.CanMoveRight(CurrentTetrimino);
+		return CurrentTetrimino != null && map.CanMoveRight(CurrentTetrimino);
 	}
 
 	public bool CanCurrentTetriminoMoveLeft()
 	{
-		return map.CanMoveLeft(CurrentTetrimino);
+		return CurrentTetrimino != null && map.CanMoveLeft(CurrentTetrimino);
 	}
 
 	public bool CanCurrentTetriminoTurn(TurnDirection direction)
 	{
-		return map.CanTurn(CurrentTetrimino, direction);
+		return CurrentTetrimino != null && map.CanTurn(CurrentTetrimino, direction);
 	}
 
 	public void Update()
@@ -88,6 +94,10 @@ public class Player : MonoBehaviour {
 			this.GameOver = true;
 			GameSuperior.Instance.EndTetris();
 			return;
+		}
+		finally
+		{
+			this.CurrentTetrimino.gameObject.SetActive(false);
 		}
 		int scoredThisTime = map.FilledLineCount();
 		ScoreBoard.Instance.AddScore(scoredThisTime);
