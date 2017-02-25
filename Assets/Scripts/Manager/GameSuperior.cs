@@ -3,6 +3,8 @@
 public class GameSuperior : MonoBehaviour {
 
 	private InputController inputController;
+
+	private UIController uiController;
 	private Player player;
 	private Map map;
 
@@ -28,11 +30,13 @@ public class GameSuperior : MonoBehaviour {
 	}
 
 	void Start () {
+		this.uiController = Spawner.SpawnObject("UIController", this.gameObject).GetComponent<UIController>();
+		this.uiController.ScoreBoard.gameObject.SetActive(false);
+		this.uiController.Title.gameObject.SetActive(true);
+
 		this.inputController = Spawner.SpawnObject("InputController", this.gameObject).GetComponent<InputController>();
 		this.inputController.AddKeyAction(new TitleScreenKeyAction());
 		this.map = Spawner.SpawnObject("Map", this.gameObject).GetComponent<Map>();
-
-		ScoreBoard.Instance.gameObject.SetActive(false);
 	}
 
 	public void StartTetris()
@@ -46,7 +50,9 @@ public class GameSuperior : MonoBehaviour {
 		this.inputController.Clear();
 		this.inputController.AddKeyAction(new PlayerIngameKeyAction(player));
 		player.map = map;
-		ScoreBoard.Instance.gameObject.SetActive(true);
-		ScoreBoard.Instance.Clear();
+
+		uiController.Title.gameObject.SetActive(false);
+		uiController.ScoreBoard.gameObject.SetActive(true);
+		uiController.ScoreBoard.Clear();
 	}
 }

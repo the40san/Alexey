@@ -20,7 +20,7 @@ public class ScoreBoard : MonoBehaviour {
 		get {
 			if (_instance == null)
 			{
-				_instance = (ScoreBoard)FindObjectOfType(typeof(ScoreBoard));;
+				_instance = (ScoreBoard)FindObjectOfType(typeof(ScoreBoard));
 			}
 
 			return _instance;
