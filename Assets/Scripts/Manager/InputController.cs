@@ -14,9 +14,20 @@ public class InputController : MonoBehaviour {
 	{
 		keyActions.Add(action);
 	}
+	public void Clear()
+	{
+		keyActions.Clear();
+	}
 
  	public void Update()
     {
+		if (Input.anyKeyDown) {
+			foreach(var a in keyActions)
+			{
+				a.OnAnyKey();
+			}
+		}
+
 		if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
 		{
 			foreach(var a in keyActions)

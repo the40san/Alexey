@@ -6,4 +6,5 @@
 	void OnKeySpace();
 	void OnKeyTurnLeft();
 	void OnKeyTurnRight();
+	void OnAnyKey();
 }

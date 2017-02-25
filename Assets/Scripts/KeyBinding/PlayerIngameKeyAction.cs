@@ -55,4 +55,6 @@
 			player.ClearPilingFrame = true;
 		}
 	}
+
+	public void OnAnyKey() {}
 }
