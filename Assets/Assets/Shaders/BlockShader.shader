@@ -10,6 +10,7 @@
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
+			#include "UnityCG.cginc"
 
 			struct appdata
 			{
@@ -26,6 +27,7 @@
 			};
 
 			sampler2D _MainTex;
+			fixed4 _MainTex_ST;
 			fixed4 _Color;
 
 			v2f vert(appdata IN)
@@ -33,7 +35,7 @@
 				v2f o;
 				o.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
 				o.color = IN.color;
-				o.texcoord = IN.texcoord;
+				o.texcoord = TRANSFORM_TEX(IN.texcoord, _MainTex);
 				return o;
 			}
 
