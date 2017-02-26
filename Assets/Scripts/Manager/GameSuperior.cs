@@ -32,6 +32,7 @@ public class GameSuperior : MonoBehaviour {
 	void Start () {
 		this.uiController = Spawner.SpawnObject("UIController", this.gameObject).GetComponent<UIController>();
 		this.inputController = Spawner.SpawnObject("InputController", this.gameObject).GetComponent<InputController>();
+		Spawner.SpawnObject("AudioController", this.gameObject);
 		GoToTitle();
 	}
 
@@ -73,10 +74,15 @@ public class GameSuperior : MonoBehaviour {
 		uiController.ScoreBoard.gameObject.SetActive(true);
 		uiController.GameOver.gameObject.SetActive(false);
 		uiController.ScoreBoard.Clear();
+
+		AudioController.Instance.StartBgm();
 	}
 
 	public void EndTetris()
 	{
+		AudioController.Instance.PlaySe(SfxId.GameOver);
+		AudioController.Instance.StopBgm();
+
 		this.uiController.GameOver.gameObject.SetActive(true);
 		this.inputController.Clear();
 		this.inputController.AddKeyAction(
