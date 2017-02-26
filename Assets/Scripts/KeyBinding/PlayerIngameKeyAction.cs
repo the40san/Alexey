@@ -38,6 +38,7 @@
 			player.CurrentTetrimino.MoveDown();
 		}
 		player.SkipPilingState = true;
+		AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 	}
 
 	public void OnKeyTurnLeft()
@@ -45,6 +46,7 @@
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
 			player.CurrentTetrimino.TurnLeft();
 			player.ClearPilingFrame = true;
+			AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}
 
@@ -53,6 +55,7 @@
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
 			player.CurrentTetrimino.TurnRight();
 			player.ClearPilingFrame = true;
+			AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}
 

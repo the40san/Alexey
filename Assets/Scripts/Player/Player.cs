@@ -100,7 +100,12 @@ public class Player : MonoBehaviour {
 			this.CurrentTetrimino.gameObject.SetActive(false);
 		}
 		int scoredThisTime = map.FilledLineCount();
-		ScoreBoard.Instance.AddScore(scoredThisTime);
+
+		if (scoredThisTime > 0)
+		{
+			ScoreBoard.Instance.AddScore(scoredThisTime);
+			AudioController.Instance.PlaySe(SfxId.LineClear);
+		}
 
 		map.CleanLines();
 		// EFFECT, THEN
