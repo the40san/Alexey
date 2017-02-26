@@ -23,9 +23,4 @@ public class Spawner : MonoBehaviour {
 	{
 		return "Prefabs/" + prefabName;
 	}
-
-	public static void DestroyObject(GameObject obj)
-	{
-		Destroy(obj);
-	}
 }

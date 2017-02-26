@@ -20,7 +20,7 @@ public class ScoreBoard : MonoBehaviour {
 		get {
 			if (_instance == null)
 			{
-				_instance = (ScoreBoard)FindObjectOfType(typeof(ScoreBoard));;
+				_instance = (ScoreBoard)FindObjectOfType(typeof(ScoreBoard));
 			}
 
 			return _instance;
@@ -35,10 +35,15 @@ public class ScoreBoard : MonoBehaviour {
 			return;
 		}
 		DontDestroyOnLoad(gameObject);
+		Clear();
+	}
 
+	public void Clear()
+	{
 		this.highScore = 0;
 		this.currentScore = 0;
 	}
+
 
 	public void AddScore(int newScore)
 	{

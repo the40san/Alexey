@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class TetriminoDispenser : MonoBehaviour {
 	private List<TetriminoShape> shapeList;
+	private List<TetriminoShape> temporaryList;
 
 	public void Awake () {
 		this.shapeList = new List<TetriminoShape>();
+		this.temporaryList = new List<TetriminoShape>();
 
 		// I-Tetrimio
 		BlockState[,] ITetriminoMap = CreateBlockMap(
@@ -96,7 +98,15 @@ public class TetriminoDispenser : MonoBehaviour {
 
 	public GameObject CreateNext()
 	{
-		return shapeList[Random.Range(0, shapeList.Count)].CreateTetorimino();
+		if (temporaryList.Count == 0) {
+			temporaryList = new List<TetriminoShape>(shapeList);
+		}
+
+		int at = Random.Range(0, temporaryList.Count);
+		TetriminoShape thisTime = temporaryList[at];
+		temporaryList.RemoveAt(at);
+
+		return thisTime.CreateTetorimino();
 	}
 
 	private BlockState[,] CreateBlockMap(BlockState state, int[,] map)

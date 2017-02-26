@@ -5,11 +5,20 @@ public class Player : MonoBehaviour {
 	public Tetrimino NextTetrimino {get; set;}
 	private TetriminoDispenser dispenser;
 
+	private PlayerSequence playerSequence;
+
+	public bool SkipPilingState {get; set;}
+	public bool ClearPilingFrame {get; set;}
+	public bool GameOver {get;set;}
+
 	public Map map;
 
-	public void Start () {
+	public const int TetriminoSpawnX = 6;
+	public const int TetriminoSpawnY = 20;
+
+	public void Awake () {
 		InitTetriminoDispenser();
-		UpdateCurrentTetrimino();
+		InitPlayerSequence();
 	}
 
 	private void InitTetriminoDispenser()
@@ -18,51 +27,83 @@ public class Player : MonoBehaviour {
 		this.dispenser = newDispenser.GetComponent<TetriminoDispenser>();
 	}
 
+	private void InitPlayerSequence()
+	{
+		this.playerSequence = new PlayerSequence();
+		this.playerSequence.CreatingNewTetriminoState = new CreatingNewTetriminoPlayerState(this);
+		this.playerSequence.DroppingState = new DroppingPlayerState(this);
+		this.playerSequence.PilingState = new PilingPlayerState(this);
+		this.playerSequence.CleaningState = new CleaningPlayerState(this);
+	}
+
 	public void UpdateCurrentTetrimino()
 	{
-		if (NextTetrimino == null) {
-			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
+		if (CurrentTetrimino != null)
+		{
+			Spawner.Destroy(this.CurrentTetrimino.gameObject);
 		}
 
-		NextTetrimino.MoveToMapPosition(3, 19); // TODO
+		if (NextTetrimino == null)
+		{
+			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
+			NextTetrimino.transform.SetParent(this.gameObject.transform);
+		}
+
+		NextTetrimino.MoveToMapPosition(TetriminoSpawnX, TetriminoSpawnY);
 		NextTetrimino.gameObject.SetActive(true);
-		NextTetrimino.transform.SetParent(this.gameObject.transform);
 		this.CurrentTetrimino = NextTetrimino;
 
 		NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
+		NextTetrimino.transform.SetParent(this.gameObject.transform);
 	}
 
 	public bool IsCurrentTetriminoPiling()
 	{
-		return map.IsPiling(CurrentTetrimino);
+		return CurrentTetrimino != null && map.IsPiling(CurrentTetrimino);
 	}
 	public bool CanCurrentTetriminoMoveRight()
 	{
-		return map.CanMoveRight(CurrentTetrimino);
+		return CurrentTetrimino != null && map.CanMoveRight(CurrentTetrimino);
 	}
 
 	public bool CanCurrentTetriminoMoveLeft()
 	{
-		return map.CanMoveLeft(CurrentTetrimino);
+		return CurrentTetrimino != null && map.CanMoveLeft(CurrentTetrimino);
 	}
 
 	public bool CanCurrentTetriminoTurn(TurnDirection direction)
 	{
-		return map.CanTurn(CurrentTetrimino, direction);
+		return CurrentTetrimino != null && map.CanTurn(CurrentTetrimino, direction);
 	}
 
-	// TODO MOVE THIS TO TICK
 	public void Update()
 	{
-		if (IsCurrentTetriminoPiling())
+		if (!GameOver) {
+			this.playerSequence.Update();
+		}
+	}
+
+	public void PileCurrentTetrimino()
+	{
+		try
 		{
 			map.PileTetrimino(CurrentTetrimino);
-			int scoredThisTime = map.FilledLineCount();
-			ScoreBoard.Instance.AddScore(scoredThisTime);
-			map.CleanLines();
-			// EFFECT, THEN
-			map.PackLines();
-			UpdateCurrentTetrimino();
 		}
+		catch (Map.BlockStackingException)
+		{
+			this.GameOver = true;
+			GameSuperior.Instance.EndTetris();
+			return;
+		}
+		finally
+		{
+			this.CurrentTetrimino.gameObject.SetActive(false);
+		}
+		int scoredThisTime = map.FilledLineCount();
+		ScoreBoard.Instance.AddScore(scoredThisTime);
+
+		map.CleanLines();
+		// EFFECT, THEN
+		map.PackLines();
 	}
 }
