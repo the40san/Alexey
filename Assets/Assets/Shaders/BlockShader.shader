@@ -6,51 +6,40 @@
 	}
 	SubShader
 	{
-		Pass {
 			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
+			#pragma surface surf Lambert vertex:vert
 			#include "UnityCG.cginc"
 
-			struct appdata
+			struct Input
 			{
-				float4 vertex : POSITION;
-				fixed4 color : COLOR;
-				float2 texcoord : TEXCOORD0;
+				float2 uv_MainTex;
+				fixed4 color;
 			};
 
-			struct v2f
-			{
-			    float4 vertex : SV_POSITION;
-				fixed4 color : COLOR;
-				float2 texcoord : TEXCOORD0;
-			};
 
 			sampler2D _MainTex;
-			fixed4 _MainTex_ST;
 			fixed4 _Color;
 
-			v2f vert(appdata IN)
+			void vert (inout appdata_full v, out Input o)
 			{
-				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
-				o.color = IN.color;
-				o.texcoord = TRANSFORM_TEX(IN.texcoord, _MainTex);
-				return o;
+				UNITY_INITIALIZE_OUTPUT(Input, o);
+				o.color = v.color * _Color;
 			}
 
-			fixed4 frag(v2f i) : SV_Target
+
+			void surf (Input IN, inout SurfaceOutput o)
 			{
-				fixed4 col = tex2D(_MainTex, i.texcoord);
+				fixed4 col = tex2D(_MainTex, IN.uv_MainTex);
 
 				if(col.r == 1 && col.g == 1 && col.b == 1)
 				{
 					col *= _Color;
 				}
 
-			    return col;
+				o.Albedo = col.rgb * col.a;
+				o.Alpha = col.a;
 			}
+
 			ENDCG
-		}
 	}
 }
