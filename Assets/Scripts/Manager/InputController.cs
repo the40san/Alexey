@@ -71,5 +71,12 @@ public class InputController : MonoBehaviour {
 				a.OnKeyTurnLeft();
 			}
 		}
+		else if (Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			foreach(var a in temporaryList)
+			{
+				a.OnKeyLShift();
+			}
+		}
     }
 }

@@ -7,4 +7,5 @@
 	void OnKeyTurnLeft();
 	void OnKeyTurnRight();
 	void OnAnyKey();
+	void OnKeyLShift();
 }

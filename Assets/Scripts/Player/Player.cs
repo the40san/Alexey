@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
 	public bool ClearPilingFrame {get; set;}
 	public bool GameOver {get;set;}
 
+	public bool HoldUsed {get; set;}
+
 	public Map map;
 
 	public const int TetriminoSpawnX = 6;
@@ -55,6 +57,30 @@ public class Player : MonoBehaviour {
 
 		NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
 		NextTetrimino.transform.SetParent(this.gameObject.transform);
+	}
+
+	public void HoldCurrentTetrimino()
+	{
+		if (HoldUsed) {
+			return;
+		}
+		HoldUsed = true;
+
+		TetriminoShape holdingShape = Hold.Instance.HoldingShape;
+		Hold.Instance.SetTetrimino(this.CurrentTetrimino);
+
+		if (holdingShape == null)
+		{
+			UpdateCurrentTetrimino();
+		}
+		else
+		{
+			Spawner.Destroy(this.CurrentTetrimino.gameObject);
+			this.CurrentTetrimino = holdingShape.CreateTetorimino().GetComponent<Tetrimino>();
+			this.CurrentTetrimino.transform.SetParent(this.gameObject.transform);
+			this.CurrentTetrimino.MoveToMapPosition(TetriminoSpawnX, TetriminoSpawnY);
+			this.CurrentTetrimino.gameObject.SetActive(true);
+		}
 	}
 
 	public bool IsCurrentTetriminoPiling()
