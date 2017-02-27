@@ -2,6 +2,19 @@
 
 public class Hold : MonoBehaviour {
 	private static Hold _instance;
+	public TetriminoShape HoldingShape
+	{
+		get {
+			if (this.holdingTetrimino == null)
+			{
+				return null;
+			}
+			return holdingTetrimino.Shape;
+		}
+	}
+
+	private Tetrimino holdingTetrimino;
+
 	public static Hold Instance
 	{
 		get {
@@ -22,5 +35,20 @@ public class Hold : MonoBehaviour {
 			return;
 		}
 		DontDestroyOnLoad(gameObject);
+	}
+
+	public GameObject hold;
+
+	public void SetTetrimino(Tetrimino tetrimino)
+	{
+		GameObject copy = tetrimino.Shape.CreateTetorimino();
+		copy.transform.Translate(tetrimino.TurnAxis);
+		copy.transform.SetParent(this.hold.transform, false);
+		copy.SetActive(true);
+
+		if (holdingTetrimino != null) {
+			Spawner.Destroy(holdingTetrimino.gameObject);
+		}
+		this.holdingTetrimino = copy.GetComponent<Tetrimino>();
 	}
 }

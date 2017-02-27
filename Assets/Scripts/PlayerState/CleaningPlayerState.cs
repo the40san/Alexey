@@ -11,6 +11,7 @@
 	public void OnUpdate(int _frameCount)
 	{
 		player.SkipPilingState = false;
+		player.HoldUsed = false;
 		player.PileCurrentTetrimino();
 	}
 

@@ -9,4 +9,6 @@
 	public void OnAnyKey() {
 		GameSuperior.Instance.StartTetris();
 	}
+
+	public void OnKeyLShift() {}
 }

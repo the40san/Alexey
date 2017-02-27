@@ -60,4 +60,8 @@
 	}
 
 	public void OnAnyKey() {}
+
+	public void OnKeyLShift() {
+		player.HoldCurrentTetrimino();
+	}
 }

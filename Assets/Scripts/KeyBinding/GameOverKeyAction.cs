@@ -25,4 +25,5 @@
 	public void OnKeyTurnRight() {}
 
 	public void OnAnyKey() {}
+	public void OnKeyLShift() {}
 }
