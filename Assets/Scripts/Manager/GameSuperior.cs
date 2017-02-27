@@ -39,9 +39,11 @@ public class GameSuperior : MonoBehaviour {
 	public void GoToTitle()
 	{
 		this.uiController.ScoreBoard.gameObject.SetActive(false);
+		this.uiController.Hold.gameObject.SetActive(false);
 		this.uiController.Title.gameObject.SetActive(true);
 		this.uiController.GameOver.gameObject.SetActive(false);
 
+		this.inputController.Clear();
 		this.inputController.AddKeyAction(new TitleScreenKeyAction());
 
 		if (map != null) {
@@ -73,6 +75,8 @@ public class GameSuperior : MonoBehaviour {
 		uiController.Title.gameObject.SetActive(false);
 		uiController.ScoreBoard.gameObject.SetActive(true);
 		uiController.GameOver.gameObject.SetActive(false);
+		uiController.Hold.gameObject.SetActive(true);
+
 		uiController.ScoreBoard.Clear();
 
 		AudioController.Instance.StartBgm();
