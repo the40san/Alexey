@@ -42,6 +42,7 @@ public class Hold : MonoBehaviour {
 	public void SetTetrimino(Tetrimino tetrimino)
 	{
 		GameObject copy = tetrimino.Shape.CreateTetorimino();
+		copy.transform.position = Vector3.zero;
 		copy.transform.Translate(tetrimino.TurnAxis);
 		copy.transform.SetParent(this.hold.transform, false);
 		copy.SetActive(true);
