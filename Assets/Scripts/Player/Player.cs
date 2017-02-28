@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using PlayerState;
 public class Player : MonoBehaviour {
 	public Tetrimino CurrentTetrimino {get; set;}
 	public Tetrimino NextTetrimino {get; set;}
@@ -34,11 +33,7 @@ public class Player : MonoBehaviour {
 
 	private void InitPlayerSequence()
 	{
-		this.playerSequence = new PlayerSequence();
-		this.playerSequence.CreatingNewTetriminoState = new CreatingNewTetriminoPlayerState(this);
-		this.playerSequence.DroppingState = new DroppingPlayerState(this);
-		this.playerSequence.PilingState = new PilingPlayerState(this);
-		this.playerSequence.CleaningState = new CleaningPlayerState(this);
+		this.playerSequence = new PlayerSequence(this);
 	}
 
 	public void UpdateCurrentTetrimino()

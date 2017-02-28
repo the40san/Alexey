@@ -1,4 +1,5 @@
-﻿public class PlayerSequence {
+﻿using PlayerState;
+public class PlayerSequence {
 	public IPlayerState CreatingNewTetriminoState {get;set;}
 	public IPlayerState DroppingState {get;set;}
 	public IPlayerState PilingState {get;set;}
@@ -7,6 +8,14 @@
 	private PlayerSequenceState currentPlayerState = PlayerSequenceState.CreatingNewTetrimino;
 
 	public int frameCount = 0;
+
+	public PlayerSequence(Player player)
+	{
+		this.CreatingNewTetriminoState = new CreatingNewTetriminoPlayerState(player);
+		this.DroppingState = new DroppingPlayerState(player);
+		this.PilingState = new PilingPlayerState(player);
+		this.CleaningState = new CleaningPlayerState(player);
+	}
 
 	public void Update () {
 		ExecuteOnUpdate();
