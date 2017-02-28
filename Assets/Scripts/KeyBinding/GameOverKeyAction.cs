@@ -1,4 +1,7 @@
-﻿public class GameOverKeyAction : IKeyAction
+﻿namespace KeyBinding
+{
+
+public class GameOverKeyAction : IKeyAction
 {
 	private GameOverMenu gameOverMenu;
 
@@ -26,4 +29,6 @@
 
 	public void OnAnyKey() {}
 	public void OnKeyLShift() {}
+}
+
 }

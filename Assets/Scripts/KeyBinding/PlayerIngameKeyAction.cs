@@ -1,4 +1,7 @@
-﻿public class PlayerIngameKeyAction : IKeyAction
+﻿namespace KeyBinding
+{
+
+public class PlayerIngameKeyAction : IKeyAction
 {
 	private Player player;
 
@@ -64,4 +67,6 @@
 	public void OnKeyLShift() {
 		player.HoldCurrentTetrimino();
 	}
+}
+
 }

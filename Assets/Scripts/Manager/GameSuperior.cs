@@ -44,7 +44,7 @@ public class GameSuperior : MonoBehaviour {
 		this.uiController.GameOver.gameObject.SetActive(false);
 
 		this.inputController.Clear();
-		this.inputController.AddKeyAction(new TitleScreenKeyAction());
+		this.inputController.AddKeyAction(new KeyBinding.TitleScreenKeyAction());
 
 		if (map != null) {
 			Spawner.Destroy(map.gameObject);
@@ -68,7 +68,7 @@ public class GameSuperior : MonoBehaviour {
 		this.player = Spawner.SpawnObject("Player", this.gameObject).GetComponent<Player>();
 
 		this.inputController.Clear();
-		this.inputController.AddKeyAction(new PlayerIngameKeyAction(player));
+		this.inputController.AddKeyAction(new KeyBinding.PlayerIngameKeyAction(player));
 
 		player.map = map;
 
@@ -90,7 +90,7 @@ public class GameSuperior : MonoBehaviour {
 		this.uiController.GameOver.gameObject.SetActive(true);
 		this.inputController.Clear();
 		this.inputController.AddKeyAction(
-			new GameOverKeyAction(this.uiController.GameOver.GameOverMenu)
+			new KeyBinding.GameOverKeyAction(this.uiController.GameOver.GameOverMenu)
 		);
 
 		this.player.gameObject.SetActive(false);
