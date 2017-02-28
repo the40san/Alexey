@@ -39,6 +39,12 @@ public class UIController : MonoBehaviour {
 			return Hold.Instance;
 		}
 	}
+
+	public Next Next {
+		get {
+			return Next.Instance;
+		}
+	}
 }
 
 }

@@ -94,19 +94,47 @@ public class TetriminoDispenser : MonoBehaviour {
 		shapeList.Add( new TetriminoShape(JTetriminoMap, new Vector3(1, 2, 0) ));
 		shapeList.Add( new TetriminoShape(LTetriminoMap, new Vector3(1, 2, 0) ));
 		shapeList.Add( new TetriminoShape(TTetriminoMap, new Vector3(1, 1, 0) ));
+
+		this.temporaryList = CreateRandomList();
+		for(int i = 0; i < UI.Next.DisplayingForecastNum; i++)
+		{
+			PushToNextUI(temporaryList[i]);
+		}
 	}
 
 	public GameObject CreateNext()
 	{
-		if (temporaryList.Count == 0) {
-			temporaryList = new List<TetriminoShape>(shapeList);
+		if (temporaryList.Count <= this.shapeList.Count) {
+			temporaryList.AddRange(CreateRandomList());
 		}
 
-		int at = Random.Range(0, temporaryList.Count);
-		TetriminoShape thisTime = temporaryList[at];
-		temporaryList.RemoveAt(at);
+		TetriminoShape thisTime = temporaryList[0];
+		TetriminoShape newForecast = temporaryList[UI.Next.DisplayingForecastNum];
+		temporaryList.RemoveAt(0);
+		PushToNextUI(newForecast);
 
 		return thisTime.CreateTetorimino();
+	}
+
+	private void PushToNextUI(TetriminoShape shape)
+	{
+		UI.Next.Instance.UpdateQueue(shape);
+	}
+
+	private List<TetriminoShape> CreateRandomList()
+	{
+		List<TetriminoShape> result = new List<TetriminoShape>();
+		List<TetriminoShape> source = new List<TetriminoShape>(this.shapeList);
+		int sourceLength = source.Count;
+
+		for(int i = 0; i < sourceLength; i++)
+		{
+			int at = Random.Range(0, source.Count);
+			result.Add(source[at]);
+			source.RemoveAt(at);
+		}
+
+		return result;
 	}
 
 	private BlockState[,] CreateBlockMap(BlockState state, int[,] map)

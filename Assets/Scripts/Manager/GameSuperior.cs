@@ -42,6 +42,7 @@ public class GameSuperior : MonoBehaviour {
 	{
 		this.uiController.ScoreBoard.gameObject.SetActive(false);
 		this.uiController.Hold.gameObject.SetActive(false);
+		this.uiController.Next.gameObject.SetActive(false);
 		this.uiController.Title.gameObject.SetActive(true);
 		this.uiController.GameOver.gameObject.SetActive(false);
 
@@ -78,6 +79,7 @@ public class GameSuperior : MonoBehaviour {
 		uiController.ScoreBoard.gameObject.SetActive(true);
 		uiController.GameOver.gameObject.SetActive(false);
 		uiController.Hold.gameObject.SetActive(true);
+		uiController.Next.gameObject.SetActive(true);
 
 		uiController.ScoreBoard.Clear();
 
