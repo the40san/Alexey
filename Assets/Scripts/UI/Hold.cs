@@ -42,6 +42,13 @@ public class Hold : MonoBehaviour {
 
 	public GameObject hold;
 
+	public void Clear()
+	{
+		if (holdingTetrimino != null) {
+			Spawner.Destroy(holdingTetrimino.gameObject);
+		}
+	}
+
 	public void SetTetrimino(Tetrimino tetrimino)
 	{
 		GameObject copy = tetrimino.Shape.CreateTetorimino();
@@ -50,9 +57,7 @@ public class Hold : MonoBehaviour {
 		copy.transform.SetParent(this.hold.transform, false);
 		copy.SetActive(true);
 
-		if (holdingTetrimino != null) {
-			Spawner.Destroy(holdingTetrimino.gameObject);
-		}
+		Clear();
 		this.holdingTetrimino = copy.GetComponent<Tetrimino>();
 	}
 }

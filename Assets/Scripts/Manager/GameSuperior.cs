@@ -42,7 +42,7 @@ public class GameSuperior : MonoBehaviour {
 	{
 		this.uiController.ScoreBoard.gameObject.SetActive(false);
 		this.uiController.Hold.gameObject.SetActive(false);
-		this.uiController.Next.gameObject.SetActive(false);
+ 		this.uiController.Next.gameObject.SetActive(false);
 		this.uiController.Title.gameObject.SetActive(true);
 		this.uiController.GameOver.gameObject.SetActive(false);
 
@@ -68,6 +68,9 @@ public class GameSuperior : MonoBehaviour {
 			Spawner.Destroy(player.gameObject);
 		}
 
+		uiController.Hold.Clear();
+		uiController.Next.Clear();
+
 		this.player = Spawner.SpawnObject("Player", this.gameObject).GetComponent<Player>();
 
 		this.inputController.Clear();
@@ -78,7 +81,7 @@ public class GameSuperior : MonoBehaviour {
 		uiController.Title.gameObject.SetActive(false);
 		uiController.ScoreBoard.gameObject.SetActive(true);
 		uiController.GameOver.gameObject.SetActive(false);
-		uiController.Hold.gameObject.SetActive(true);
+	    uiController.Hold.gameObject.SetActive(true);
 		uiController.Next.gameObject.SetActive(true);
 
 		uiController.ScoreBoard.Clear();
