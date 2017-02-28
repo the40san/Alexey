@@ -1,4 +1,7 @@
-﻿public class PilingPlayerState : IPlayerState
+﻿namespace PlayerState
+{
+
+public class PilingPlayerState : IPlayerState
 {
 	public const int pilingFrame = 30;
 
@@ -15,9 +18,9 @@
 	public void OnUpdate(int _frameCount)
 	{
 		// Clear frameCount when you used rotate or move key
-		if (player.ClearPilingFrame)
+		if (player.Attribute.ClearPilingFrame)
 		{
-			player.ClearPilingFrame = false;
+			player.Attribute.ClearPilingFrame = false;
 			this.frameCount = 0;
 		}
 		else {
@@ -32,6 +35,8 @@
 
 	public bool CanTransitionNextState(int _frameCount)
 	{
-		return player.SkipPilingState || this.frameCount >= pilingFrame;
+		return player.Attribute.SkipPilingState || this.frameCount >= pilingFrame;
 	}
+}
+
 }

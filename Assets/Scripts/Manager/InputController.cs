@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+namespace Manager
+{
+
 public class InputController : MonoBehaviour {
 
 	private List<IKeyAction> keyActions;
@@ -71,5 +74,14 @@ public class InputController : MonoBehaviour {
 				a.OnKeyTurnLeft();
 			}
 		}
+		else if (Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			foreach(var a in temporaryList)
+			{
+				a.OnKeyLShift();
+			}
+		}
     }
+}
+
 }

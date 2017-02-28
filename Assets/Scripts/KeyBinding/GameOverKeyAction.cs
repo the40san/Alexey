@@ -1,8 +1,11 @@
-﻿public class GameOverKeyAction : IKeyAction
+﻿namespace KeyBinding
 {
-	private GameOverMenu gameOverMenu;
 
-	public GameOverKeyAction(GameOverMenu gameOverMenu)
+public class GameOverKeyAction : IKeyAction
+{
+	private Manager.GameOverMenu gameOverMenu;
+
+	public GameOverKeyAction(Manager.GameOverMenu gameOverMenu)
 	{
 		this.gameOverMenu = gameOverMenu;
 	}
@@ -25,4 +28,7 @@
 	public void OnKeyTurnRight() {}
 
 	public void OnAnyKey() {}
+	public void OnKeyLShift() {}
+}
+
 }

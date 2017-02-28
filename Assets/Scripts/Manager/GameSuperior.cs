@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+namespace Manager {
+
 public class GameSuperior : MonoBehaviour {
 
 	private InputController inputController;
@@ -32,16 +34,20 @@ public class GameSuperior : MonoBehaviour {
 	void Start () {
 		this.uiController = Spawner.SpawnObject("UIController", this.gameObject).GetComponent<UIController>();
 		this.inputController = Spawner.SpawnObject("InputController", this.gameObject).GetComponent<InputController>();
+		Spawner.SpawnObject("AudioController", this.gameObject);
 		GoToTitle();
 	}
 
 	public void GoToTitle()
 	{
 		this.uiController.ScoreBoard.gameObject.SetActive(false);
+		this.uiController.Hold.gameObject.SetActive(false);
+		this.uiController.Next.gameObject.SetActive(false);
 		this.uiController.Title.gameObject.SetActive(true);
 		this.uiController.GameOver.gameObject.SetActive(false);
 
-		this.inputController.AddKeyAction(new TitleScreenKeyAction());
+		this.inputController.Clear();
+		this.inputController.AddKeyAction(new KeyBinding.TitleScreenKeyAction());
 
 		if (map != null) {
 			Spawner.Destroy(map.gameObject);
@@ -65,24 +71,34 @@ public class GameSuperior : MonoBehaviour {
 		this.player = Spawner.SpawnObject("Player", this.gameObject).GetComponent<Player>();
 
 		this.inputController.Clear();
-		this.inputController.AddKeyAction(new PlayerIngameKeyAction(player));
+		this.inputController.AddKeyAction(new KeyBinding.PlayerIngameKeyAction(player));
 
 		player.map = map;
 
 		uiController.Title.gameObject.SetActive(false);
 		uiController.ScoreBoard.gameObject.SetActive(true);
 		uiController.GameOver.gameObject.SetActive(false);
+		uiController.Hold.gameObject.SetActive(true);
+		uiController.Next.gameObject.SetActive(true);
+
 		uiController.ScoreBoard.Clear();
+
+		AudioController.Instance.StartBgm();
 	}
 
 	public void EndTetris()
 	{
+		AudioController.Instance.PlaySe(SfxId.GameOver);
+		AudioController.Instance.StopBgm();
+
 		this.uiController.GameOver.gameObject.SetActive(true);
 		this.inputController.Clear();
 		this.inputController.AddKeyAction(
-			new GameOverKeyAction(this.uiController.GameOver.GameOverMenu)
+			new KeyBinding.GameOverKeyAction(this.uiController.GameOver.GameOverMenu)
 		);
 
 		this.player.gameObject.SetActive(false);
 	}
+}
+
 }

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+namespace UI
+{
+
 public class SelectableText : MonoBehaviour {
 	public bool isSelected;
 
@@ -15,4 +18,6 @@ public class SelectableText : MonoBehaviour {
 		Color color = this.isSelected ? Color.white : defaultColor;
 		this.gameObject.GetComponent<Text>().color = color;
 	}
+}
+
 }

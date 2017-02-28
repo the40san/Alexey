@@ -1,4 +1,7 @@
-﻿public class TitleScreenKeyAction : IKeyAction {
+﻿namespace KeyBinding
+{
+
+public class TitleScreenKeyAction : IKeyAction {
 	public void OnKeyLeft() {}
 	public void OnKeyRight() {}
 	public void OnKeyDown() {}
@@ -7,6 +10,10 @@
 	public void OnKeyTurnRight() {}
 
 	public void OnAnyKey() {
-		GameSuperior.Instance.StartTetris();
+		Manager.GameSuperior.Instance.StartTetris();
 	}
+
+	public void OnKeyLShift() {}
+}
+
 }

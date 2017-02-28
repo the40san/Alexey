@@ -5,7 +5,7 @@
 	void OnUpdate (int frameCount);
 }
 
-public enum PlayerState
+public enum PlayerSequenceState
 {
 	CreatingNewTetrimino,
 	Dropping,

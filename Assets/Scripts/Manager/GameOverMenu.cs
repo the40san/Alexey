@@ -1,4 +1,7 @@
-﻿public class GameOverMenu {
+﻿namespace Manager
+{
+
+public class GameOverMenu {
 	public enum GameOverOption {
 		Restart,
 		GoToTitle
@@ -38,4 +41,6 @@
 				break;
 		}
 	}
+}
+
 }

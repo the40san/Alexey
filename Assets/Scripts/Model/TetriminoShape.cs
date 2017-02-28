@@ -38,6 +38,7 @@ public class TetriminoShape
 		// TODO
 		tetrimino.transform.Translate(0.5f, 0.5f, 0);
 		tetrimino.TurnAxis = turnAxis;
+		tetrimino.Shape = this;
 
 		return tetrimino.gameObject;
 	}
