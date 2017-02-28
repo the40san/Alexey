@@ -8,6 +8,11 @@ public class ScoreBoard : MonoBehaviour {
 
 	private int highScore;
 	private int currentScore;
+	public int CurrentScore {
+		get {
+			return currentScore;
+		}
+	}
 
 
 	[SerializeField]
