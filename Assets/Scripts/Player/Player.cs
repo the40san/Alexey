@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 public class Player : MonoBehaviour {
 	public Tetrimino CurrentTetrimino {get; set;}
-	public Tetrimino NextTetrimino {get; set;}
-	private TetriminoDispenser dispenser;
+	private TetriminoDispenser 	dispenser;
 
 	private PlayerSequence playerSequence;
 
@@ -47,18 +46,12 @@ public class Player : MonoBehaviour {
 			Spawner.Destroy(this.CurrentTetrimino.gameObject);
 		}
 
-		if (NextTetrimino == null)
-		{
-			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
-		}
+		Tetrimino newTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
+		newTetrimino.transform.SetParent(this.gameObject.transform);
+		newTetrimino.MoveToMapPosition(TetriminoSpawnX, TetriminoSpawnY);
+		newTetrimino.gameObject.SetActive(true);
 
-		NextTetrimino.transform.SetParent(this.gameObject.transform);
-		NextTetrimino.MoveToMapPosition(TetriminoSpawnX, TetriminoSpawnY);
-		NextTetrimino.gameObject.SetActive(true);
-		this.CurrentTetrimino = NextTetrimino;
-
-		NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
-		NextTetrimino.transform.SetParent(this.gameObject.transform);
+		this.CurrentTetrimino = newTetrimino;
 	}
 
 	public void HoldCurrentTetrimino()
