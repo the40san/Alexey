@@ -15,7 +15,7 @@ public class PlayerIngameKeyAction : IKeyAction
 		if (player.CanCurrentTetriminoMoveLeft())
 		{
 			player.CurrentTetrimino.MoveLeft();
-			player.ClearPilingFrame = true;
+			player.Attribute.ClearPilingFrame = true;
 		}
 	}
 
@@ -24,7 +24,7 @@ public class PlayerIngameKeyAction : IKeyAction
 		if (player.CanCurrentTetriminoMoveRight())
 		{
 			player.CurrentTetrimino.MoveRight();
-			player.ClearPilingFrame = true;
+			player.Attribute.ClearPilingFrame = true;
 		}
 	}
 
@@ -40,7 +40,7 @@ public class PlayerIngameKeyAction : IKeyAction
 		{
 			player.CurrentTetrimino.MoveDown();
 		}
-		player.SkipPilingState = true;
+		player.Attribute.SkipPilingState = true;
 		Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 	}
 
@@ -48,7 +48,7 @@ public class PlayerIngameKeyAction : IKeyAction
 	{
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
 			player.CurrentTetrimino.TurnLeft();
-			player.ClearPilingFrame = true;
+			player.Attribute.ClearPilingFrame = true;
 			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}
@@ -57,7 +57,7 @@ public class PlayerIngameKeyAction : IKeyAction
 	{
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
 			player.CurrentTetrimino.TurnRight();
-			player.ClearPilingFrame = true;
+			player.Attribute.ClearPilingFrame = true;
 			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}

@@ -13,8 +13,8 @@ public class CleaningPlayerState : IPlayerState
 
 	public void OnUpdate(int _frameCount)
 	{
-		player.SkipPilingState = false;
-		player.HoldUsed = false;
+		player.Attribute.SkipPilingState = false;
+		player.Attribute.HoldUsed = false;
 		player.PileCurrentTetrimino();
 	}
 
