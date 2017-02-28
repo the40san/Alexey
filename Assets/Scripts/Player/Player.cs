@@ -118,7 +118,7 @@ public class Player : MonoBehaviour {
 		catch (Map.BlockStackingException)
 		{
 			this.GameOver = true;
-			GameSuperior.Instance.EndTetris();
+			Manager.GameSuperior.Instance.EndTetris();
 			return;
 		}
 		finally
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour {
 		if (scoredThisTime > 0)
 		{
 			UI.ScoreBoard.Instance.AddScore(scoredThisTime);
-			AudioController.Instance.PlaySe(SfxId.LineClear);
+			Manager.AudioController.Instance.PlaySe(SfxId.LineClear);
 		}
 
 		map.CleanLines();

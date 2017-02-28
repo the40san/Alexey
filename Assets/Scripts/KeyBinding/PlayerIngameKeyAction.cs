@@ -41,7 +41,7 @@ public class PlayerIngameKeyAction : IKeyAction
 			player.CurrentTetrimino.MoveDown();
 		}
 		player.SkipPilingState = true;
-		AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
+		Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 	}
 
 	public void OnKeyTurnLeft()
@@ -49,7 +49,7 @@ public class PlayerIngameKeyAction : IKeyAction
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
 			player.CurrentTetrimino.TurnLeft();
 			player.ClearPilingFrame = true;
-			AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
+			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class PlayerIngameKeyAction : IKeyAction
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
 			player.CurrentTetrimino.TurnRight();
 			player.ClearPilingFrame = true;
-			AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
+			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}
 

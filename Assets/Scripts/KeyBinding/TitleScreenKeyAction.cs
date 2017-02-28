@@ -10,7 +10,7 @@ public class TitleScreenKeyAction : IKeyAction {
 	public void OnKeyTurnRight() {}
 
 	public void OnAnyKey() {
-		GameSuperior.Instance.StartTetris();
+		Manager.GameSuperior.Instance.StartTetris();
 	}
 
 	public void OnKeyLShift() {}

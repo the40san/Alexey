@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+namespace Manager {
+
 public class GameSuperior : MonoBehaviour {
 
 	private InputController inputController;
@@ -95,4 +97,6 @@ public class GameSuperior : MonoBehaviour {
 
 		this.player.gameObject.SetActive(false);
 	}
+}
+
 }

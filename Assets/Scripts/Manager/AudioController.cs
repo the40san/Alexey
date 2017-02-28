@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+namespace Manager
+{
+
 public class AudioController : MonoBehaviour {
 	public AudioClip bgm;
 	public AudioClip lineClear;
@@ -79,4 +82,6 @@ public class AudioController : MonoBehaviour {
 		}
 		return null;
 	}
+}
+
 }

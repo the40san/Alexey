@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UI;
 
+namespace Manager
+{
+
 public class UIController : MonoBehaviour {
 	private Title _title;
 
@@ -36,4 +39,6 @@ public class UIController : MonoBehaviour {
 			return Hold.Instance;
 		}
 	}
+}
+
 }

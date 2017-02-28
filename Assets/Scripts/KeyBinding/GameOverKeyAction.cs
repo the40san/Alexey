@@ -3,9 +3,9 @@
 
 public class GameOverKeyAction : IKeyAction
 {
-	private GameOverMenu gameOverMenu;
+	private Manager.GameOverMenu gameOverMenu;
 
-	public GameOverKeyAction(GameOverMenu gameOverMenu)
+	public GameOverKeyAction(Manager.GameOverMenu gameOverMenu)
 	{
 		this.gameOverMenu = gameOverMenu;
 	}
