@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+namespace UI
+{
+
 public class Hold : MonoBehaviour {
 	private static Hold _instance;
 	public TetriminoShape HoldingShape
@@ -52,4 +55,6 @@ public class Hold : MonoBehaviour {
 		}
 		this.holdingTetrimino = copy.GetComponent<Tetrimino>();
 	}
+}
+
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UI;
 
 public class UIController : MonoBehaviour {
 	private Title _title;

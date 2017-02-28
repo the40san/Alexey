@@ -66,8 +66,8 @@ public class Player : MonoBehaviour {
 		}
 		HoldUsed = true;
 
-		TetriminoShape holdingShape = Hold.Instance.HoldingShape;
-		Hold.Instance.SetTetrimino(this.CurrentTetrimino);
+		TetriminoShape holdingShape = UI.Hold.Instance.HoldingShape;
+		UI.Hold.Instance.SetTetrimino(this.CurrentTetrimino);
 
 		if (holdingShape == null)
 		{
@@ -129,7 +129,7 @@ public class Player : MonoBehaviour {
 
 		if (scoredThisTime > 0)
 		{
-			ScoreBoard.Instance.AddScore(scoredThisTime);
+			UI.ScoreBoard.Instance.AddScore(scoredThisTime);
 			AudioController.Instance.PlaySe(SfxId.LineClear);
 		}
 

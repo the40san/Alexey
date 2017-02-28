@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+namespace UI
+{
+
 public class ScoreBoard : MonoBehaviour {
 
 	private int highScore;
@@ -53,4 +56,6 @@ public class ScoreBoard : MonoBehaviour {
 		currentScoreText.text = currentScore.ToString();
 		highScoreText.text = highScore.ToString();
 	}
+}
+
 }

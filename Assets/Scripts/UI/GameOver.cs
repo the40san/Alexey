@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+namespace UI
+{
+
 public class GameOver : MonoBehaviour {
     public GameOverMenu GameOverMenu {
         get {
@@ -29,4 +32,6 @@ public class GameOver : MonoBehaviour {
         restartText.isSelected = false;
         goToTitleText.isSelected = true;
     }
+}
+
 }
