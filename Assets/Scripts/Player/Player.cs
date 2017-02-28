@@ -21,8 +21,7 @@ public class Player : MonoBehaviour {
 	public void Awake () {
 		InitTetriminoDispenser();
 		InitPlayerSequence();
-
-		this._attribute = new PlayerAttribute();
+		InitPlayerAttribute();
 	}
 
 	private void InitTetriminoDispenser()
@@ -34,6 +33,11 @@ public class Player : MonoBehaviour {
 	private void InitPlayerSequence()
 	{
 		this.playerSequence = new PlayerSequence(this);
+	}
+
+	private void InitPlayerAttribute()
+	{
+		this._attribute = new PlayerAttribute();
 	}
 
 	public void UpdateCurrentTetrimino()
