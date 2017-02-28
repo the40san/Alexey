@@ -1,4 +1,7 @@
-﻿public class PlayerIngameKeyAction : IKeyAction
+﻿namespace KeyBinding
+{
+
+public class PlayerIngameKeyAction : IKeyAction
 {
 	private Player player;
 
@@ -12,7 +15,7 @@
 		if (player.CanCurrentTetriminoMoveLeft())
 		{
 			player.CurrentTetrimino.MoveLeft();
-			player.ClearPilingFrame = true;
+			player.Attribute.ClearPilingFrame = true;
 		}
 	}
 
@@ -21,7 +24,7 @@
 		if (player.CanCurrentTetriminoMoveRight())
 		{
 			player.CurrentTetrimino.MoveRight();
-			player.ClearPilingFrame = true;
+			player.Attribute.ClearPilingFrame = true;
 		}
 	}
 
@@ -37,16 +40,16 @@
 		{
 			player.CurrentTetrimino.MoveDown();
 		}
-		player.SkipPilingState = true;
-		AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
+		player.Attribute.SkipPilingState = true;
+		Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 	}
 
 	public void OnKeyTurnLeft()
 	{
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
 			player.CurrentTetrimino.TurnLeft();
-			player.ClearPilingFrame = true;
-			AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
+			player.Attribute.ClearPilingFrame = true;
+			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}
 
@@ -54,8 +57,8 @@
 	{
 		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
 			player.CurrentTetrimino.TurnRight();
-			player.ClearPilingFrame = true;
-			AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
+			player.Attribute.ClearPilingFrame = true;
+			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
 	}
 
@@ -64,4 +67,6 @@
 	public void OnKeyLShift() {
 		player.HoldCurrentTetrimino();
 	}
+}
+
 }

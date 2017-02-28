@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+namespace Manager
+{
+
 public class InputController : MonoBehaviour {
 
 	private List<IKeyAction> keyActions;
@@ -79,4 +82,6 @@ public class InputController : MonoBehaviour {
 			}
 		}
     }
+}
+
 }

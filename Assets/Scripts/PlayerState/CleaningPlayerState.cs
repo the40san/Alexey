@@ -1,4 +1,7 @@
-﻿public class CleaningPlayerState : IPlayerState
+﻿namespace PlayerState
+{
+
+public class CleaningPlayerState : IPlayerState
 {
 	private Player player;
 	public const int GameSpeed = 60;
@@ -10,8 +13,8 @@
 
 	public void OnUpdate(int _frameCount)
 	{
-		player.SkipPilingState = false;
-		player.HoldUsed = false;
+		player.Attribute.SkipPilingState = false;
+		player.Attribute.HoldUsed = false;
 		player.PileCurrentTetrimino();
 	}
 
@@ -24,4 +27,6 @@
 	{
 		return true;
 	}
+}
+
 }

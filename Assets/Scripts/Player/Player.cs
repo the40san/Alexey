@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class Player : MonoBehaviour {
 	public Tetrimino CurrentTetrimino {get; set;}
 	public Tetrimino NextTetrimino {get; set;}
@@ -7,11 +6,12 @@ public class Player : MonoBehaviour {
 
 	private PlayerSequence playerSequence;
 
-	public bool SkipPilingState {get; set;}
-	public bool ClearPilingFrame {get; set;}
-	public bool GameOver {get;set;}
-
-	public bool HoldUsed {get; set;}
+	public PlayerAttribute Attribute {
+		get {
+			return this._attribute;
+		}
+	}
+	private PlayerAttribute _attribute;
 
 	public Map map;
 
@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
 	public void Awake () {
 		InitTetriminoDispenser();
 		InitPlayerSequence();
+		InitPlayerAttribute();
 	}
 
 	private void InitTetriminoDispenser()
@@ -31,11 +32,12 @@ public class Player : MonoBehaviour {
 
 	private void InitPlayerSequence()
 	{
-		this.playerSequence = new PlayerSequence();
-		this.playerSequence.CreatingNewTetriminoState = new CreatingNewTetriminoPlayerState(this);
-		this.playerSequence.DroppingState = new DroppingPlayerState(this);
-		this.playerSequence.PilingState = new PilingPlayerState(this);
-		this.playerSequence.CleaningState = new CleaningPlayerState(this);
+		this.playerSequence = new PlayerSequence(this);
+	}
+
+	private void InitPlayerAttribute()
+	{
+		this._attribute = new PlayerAttribute();
 	}
 
 	public void UpdateCurrentTetrimino()
@@ -48,9 +50,9 @@ public class Player : MonoBehaviour {
 		if (NextTetrimino == null)
 		{
 			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
-			NextTetrimino.transform.SetParent(this.gameObject.transform);
 		}
 
+		NextTetrimino.transform.SetParent(this.gameObject.transform);
 		NextTetrimino.MoveToMapPosition(TetriminoSpawnX, TetriminoSpawnY);
 		NextTetrimino.gameObject.SetActive(true);
 		this.CurrentTetrimino = NextTetrimino;
@@ -61,13 +63,13 @@ public class Player : MonoBehaviour {
 
 	public void HoldCurrentTetrimino()
 	{
-		if (HoldUsed) {
+		if (Attribute.HoldUsed) {
 			return;
 		}
-		HoldUsed = true;
+		Attribute.HoldUsed = true;
 
-		TetriminoShape holdingShape = Hold.Instance.HoldingShape;
-		Hold.Instance.SetTetrimino(this.CurrentTetrimino);
+		TetriminoShape holdingShape = UI.Hold.Instance.HoldingShape;
+		UI.Hold.Instance.SetTetrimino(this.CurrentTetrimino);
 
 		if (holdingShape == null)
 		{
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour {
 
 	public void Update()
 	{
-		if (!GameOver) {
+		if (!this.Attribute.GameOver) {
 			this.playerSequence.Update();
 		}
 	}
@@ -117,8 +119,8 @@ public class Player : MonoBehaviour {
 		}
 		catch (Map.BlockStackingException)
 		{
-			this.GameOver = true;
-			GameSuperior.Instance.EndTetris();
+			this.Attribute.GameOver = true;
+			Manager.GameSuperior.Instance.EndTetris();
 			return;
 		}
 		finally
@@ -129,8 +131,8 @@ public class Player : MonoBehaviour {
 
 		if (scoredThisTime > 0)
 		{
-			ScoreBoard.Instance.AddScore(scoredThisTime);
-			AudioController.Instance.PlaySe(SfxId.LineClear);
+			UI.ScoreBoard.Instance.AddScore(scoredThisTime);
+			Manager.AudioController.Instance.PlaySe(SfxId.LineClear);
 		}
 
 		map.CleanLines();

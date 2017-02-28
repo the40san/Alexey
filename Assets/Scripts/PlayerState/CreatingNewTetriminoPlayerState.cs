@@ -1,4 +1,6 @@
-﻿public class CreatingNewTetriminoPlayerState : IPlayerState
+﻿namespace PlayerState
+{
+public class CreatingNewTetriminoPlayerState : IPlayerState
 {
 	private Player player;
 
@@ -21,4 +23,6 @@
 	{
 		return true;
 	}
+}
+
 }
