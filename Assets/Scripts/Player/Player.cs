@@ -126,6 +126,7 @@ public class Player : MonoBehaviour {
 		{
 			UI.ScoreBoard.Instance.AddScore(scoredThisTime);
 			Manager.AudioController.Instance.PlaySe(SfxId.LineClear);
+			Attribute.UpdateGameSpeed();
 		}
 
 		map.CleanLines();
