@@ -4,7 +4,7 @@
 	public IPlayerState PilingState {get;set;}
 	public IPlayerState CleaningState {get;set;}
 
-	private PlayerState currentPlayerState = PlayerState.CreatingNewTetrimino;
+	private PlayerSequenceState currentPlayerState = PlayerSequenceState.CreatingNewTetrimino;
 
 	public int frameCount = 0;
 
@@ -18,17 +18,17 @@
 		GetPlayerState(currentPlayerState).OnUpdate(frameCount);
 	}
 
-	private IPlayerState GetPlayerState(PlayerState state)
+	private IPlayerState GetPlayerState(PlayerSequenceState state)
 	{
 		switch(state)
 		{
-			case PlayerState.CreatingNewTetrimino:
+			case PlayerSequenceState.CreatingNewTetrimino:
 				return CreatingNewTetriminoState;
-			case PlayerState.Dropping:
+			case PlayerSequenceState.Dropping:
 				return DroppingState;
-			case PlayerState.Piling:
+			case PlayerSequenceState.Piling:
 				return PilingState;
-			case PlayerState.Cleaning:
+			case PlayerSequenceState.Cleaning:
 				return CleaningState;
 		}
 		return null;
@@ -55,9 +55,9 @@
 
 	private void TransitionToNextPlayerState()
 	{
-		if (currentPlayerState == PlayerState.Cleaning)
+		if (currentPlayerState == PlayerSequenceState.Cleaning)
 		{
-			currentPlayerState = PlayerState.CreatingNewTetrimino;
+			currentPlayerState = PlayerSequenceState.CreatingNewTetrimino;
 			return;
 		}
 		currentPlayerState = currentPlayerState + 1;
@@ -65,10 +65,10 @@
 
 	private void TransitionToPreviousPlayerState()
 	{
-		if (currentPlayerState == PlayerState.CreatingNewTetrimino)
+		if (currentPlayerState == PlayerSequenceState.CreatingNewTetrimino)
 		{
 			// unreachable, maybe.
-			currentPlayerState = PlayerState.Cleaning;
+			currentPlayerState = PlayerSequenceState.Cleaning;
 			return;
 		}
 

@@ -1,4 +1,7 @@
-﻿public class DroppingPlayerState : IPlayerState
+﻿namespace PlayerState
+{
+
+public class DroppingPlayerState : IPlayerState
 {
 	private Player player;
 	public const int GameSpeed = 60;
@@ -29,4 +32,6 @@
 	{
 		return player.IsCurrentTetriminoPiling();
 	}
+}
+
 }

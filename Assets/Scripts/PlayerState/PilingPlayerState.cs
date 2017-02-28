@@ -1,4 +1,7 @@
-﻿public class PilingPlayerState : IPlayerState
+﻿namespace PlayerState
+{
+
+public class PilingPlayerState : IPlayerState
 {
 	public const int pilingFrame = 30;
 
@@ -34,4 +37,6 @@
 	{
 		return player.SkipPilingState || this.frameCount >= pilingFrame;
 	}
+}
+
 }

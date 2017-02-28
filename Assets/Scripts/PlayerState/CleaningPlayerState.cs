@@ -1,4 +1,7 @@
-﻿public class CleaningPlayerState : IPlayerState
+﻿namespace PlayerState
+{
+
+public class CleaningPlayerState : IPlayerState
 {
 	private Player player;
 	public const int GameSpeed = 60;
@@ -24,4 +27,6 @@
 	{
 		return true;
 	}
+}
+
 }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using PlayerState;
 public class Player : MonoBehaviour {
 	public Tetrimino CurrentTetrimino {get; set;}
 	public Tetrimino NextTetrimino {get; set;}
