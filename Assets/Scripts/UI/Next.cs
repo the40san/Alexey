@@ -38,6 +38,15 @@ public class Next : MonoBehaviour {
 		displayingTetriminos = new List<Tetrimino>();
 	}
 
+	public void Clear()
+	{
+		for(int i = 0; i < displayingTetriminos.Count; i++)
+		{
+			Spawner.Destroy(displayingTetriminos[i].gameObject);
+		}
+		displayingTetriminos.Clear();
+	}
+
 	public void UpdateQueue(TetriminoShape newTetriminoShape)
 	{
 		Tetrimino adding = newTetriminoShape.CreateTetorimino().GetComponent<Tetrimino>();
