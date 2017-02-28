@@ -50,9 +50,9 @@ public class Player : MonoBehaviour {
 		if (NextTetrimino == null)
 		{
 			NextTetrimino = dispenser.CreateNext().GetComponent<Tetrimino>();
-			NextTetrimino.transform.SetParent(this.gameObject.transform);
 		}
 
+		NextTetrimino.transform.SetParent(this.gameObject.transform);
 		NextTetrimino.MoveToMapPosition(TetriminoSpawnX, TetriminoSpawnY);
 		NextTetrimino.gameObject.SetActive(true);
 		this.CurrentTetrimino = NextTetrimino;
