@@ -46,8 +46,9 @@ public class PlayerIngameKeyAction : IKeyAction
 
 	public void OnKeyTurnLeft()
 	{
-		if (player.CanCurrentTetriminoTurn(TurnDirection.Left)) {
-			player.CurrentTetrimino.TurnLeft();
+		TetriminoTurn turn = player.TrySuperRotation(TurnDirection.Left);
+		if (turn != null) {
+			turn.TurnTetrimino();
 			player.Attribute.ClearPilingFrame = true;
 			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}
@@ -55,8 +56,9 @@ public class PlayerIngameKeyAction : IKeyAction
 
 	public void OnKeyTurnRight()
 	{
-		if (player.CanCurrentTetriminoTurn(TurnDirection.Right)) {
-			player.CurrentTetrimino.TurnRight();
+		TetriminoTurn turn = player.TrySuperRotation(TurnDirection.Right);
+		if (turn != null) {
+			turn.TurnTetrimino();
 			player.Attribute.ClearPilingFrame = true;
 			Manager.AudioController.Instance.PlaySe(SfxId.TetriminoTurn);
 		}

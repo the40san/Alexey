@@ -4,7 +4,6 @@
 public class DroppingPlayerState : IPlayerState
 {
 	private Player player;
-	public const int GameSpeed = 60;
 
 	public DroppingPlayerState(Player player)
 	{
@@ -13,7 +12,7 @@ public class DroppingPlayerState : IPlayerState
 
 	public void OnUpdate(int frameCount)
 	{
-		if (frameCount % GameSpeed != 0 && frameCount != 0)
+		if (frameCount % player.Attribute.GameSpeed != 0 && frameCount != 0)
 		{
 			return;
 		}

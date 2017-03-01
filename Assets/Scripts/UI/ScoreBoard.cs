@@ -8,6 +8,11 @@ public class ScoreBoard : MonoBehaviour {
 
 	private int highScore;
 	private int currentScore;
+	public int CurrentScore {
+		get {
+			return currentScore;
+		}
+	}
 
 
 	[SerializeField]
@@ -38,13 +43,14 @@ public class ScoreBoard : MonoBehaviour {
 			return;
 		}
 		DontDestroyOnLoad(gameObject);
+		this.highScore = 0;
 		Clear();
 	}
 
 	public void Clear()
 	{
-		this.highScore = 0;
 		this.currentScore = 0;
+		UpdateScoreText();
 	}
 
 
@@ -52,7 +58,11 @@ public class ScoreBoard : MonoBehaviour {
 	{
 		this.currentScore += newScore;
 		if (this.highScore < currentScore) this.highScore = currentScore;
+		UpdateScoreText();
+	}
 
+	private void UpdateScoreText()
+	{
 		currentScoreText.text = currentScore.ToString();
 		highScoreText.text = highScore.ToString();
 	}

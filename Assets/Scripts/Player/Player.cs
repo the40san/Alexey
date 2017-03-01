@@ -92,9 +92,28 @@ public class Player : MonoBehaviour {
 		return CurrentTetrimino != null && map.CanMoveLeft(CurrentTetrimino);
 	}
 
-	public bool CanCurrentTetriminoTurn(TurnDirection direction)
+	public TetriminoTurn TrySuperRotation(TurnDirection direction)
 	{
-		return CurrentTetrimino != null && map.CanTurn(CurrentTetrimino, direction);
+ 		if (CurrentTetrimino == null) {
+			return null;
+		}
+
+		TetriminoTurn[] list = new TetriminoTurn[] {
+			new TetriminoTurn(CurrentTetrimino, direction, Vector3.zero),
+			new TetriminoTurn(CurrentTetrimino, direction, Vector3.left),
+			new TetriminoTurn(CurrentTetrimino, direction, Vector3.left + Vector3.down),
+			new TetriminoTurn(CurrentTetrimino, direction, Vector3.right),
+			new TetriminoTurn(CurrentTetrimino, direction, Vector3.right + Vector3.down)
+		};
+
+		foreach (TetriminoTurn turn in list)
+		{
+			if (map.CanTurn(turn)) {
+				return turn;
+			}
+
+		}
+		return null;
 	}
 
 	public void Update()
@@ -126,6 +145,7 @@ public class Player : MonoBehaviour {
 		{
 			UI.ScoreBoard.Instance.AddScore(scoredThisTime);
 			Manager.AudioController.Instance.PlaySe(SfxId.LineClear);
+			Attribute.UpdateGameSpeed();
 		}
 
 		map.CleanLines();
