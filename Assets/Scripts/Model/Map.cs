@@ -106,9 +106,9 @@ public class Map : MonoBehaviour {
 		return true;
 	}
 
-	public bool CanTurn(ITurnable turnable, TurnDirection direction)
+	public bool CanTurn(TetriminoTurn turn)
 	{
-		List<Vector3> worldPositions = turnable.TurnedWorldPositions(direction);
+		List<Vector3> worldPositions = turn.TurnedWorldPositions();
 
 		foreach(Vector3 pos in worldPositions)
 		{
