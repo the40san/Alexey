@@ -11,3 +11,13 @@ A,D: Strafe
 S: Drop Down 1 unit  
 Space: Instant-Drop  
 LShift: Hold  
+
+
+# Start Developing
+
+```
+git clone git@github.com:the40san/Alexey.git
+cd Alexey
+git submodule init
+git submodule update
+```
