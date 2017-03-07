@@ -33,8 +33,6 @@ public class Next : MonoBehaviour {
 			Destroy(gameObject);
 			return;
 		}
-		DontDestroyOnLoad(gameObject);
-
 		displayingTetriminos = new List<Tetrimino>();
 	}
 

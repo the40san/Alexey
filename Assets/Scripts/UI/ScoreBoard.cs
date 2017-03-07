@@ -49,7 +49,6 @@ public class ScoreBoard : MonoBehaviour {
 			Destroy(gameObject);
 			return;
 		}
-		DontDestroyOnLoad(gameObject);
 		this.highScore = 0;
 		Clear();
 	}
