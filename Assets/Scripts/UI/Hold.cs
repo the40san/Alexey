@@ -37,7 +37,6 @@ public class Hold : MonoBehaviour {
 			Destroy(gameObject);
 			return;
 		}
-		DontDestroyOnLoad(gameObject);
 	}
 
 	public GameObject hold;
