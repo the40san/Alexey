@@ -21,6 +21,8 @@ public class GameSuperior : MonoBehaviour {
 	}
 	private static GameSuperior _instance;
 
+	public string gameServerHost = "";
+
 	public void Awake()
 	{
 		if (Instance != this)
@@ -58,6 +60,8 @@ public class GameSuperior : MonoBehaviour {
 
 	public void StartTetris()
 	{
+		int highScore = Network.Score.GetCurrentHighScore();
+
 		if (map != null) {
 			Spawner.Destroy(map.gameObject);
 		}
@@ -85,6 +89,7 @@ public class GameSuperior : MonoBehaviour {
 		uiController.Next.gameObject.SetActive(true);
 
 		uiController.ScoreBoard.Clear();
+		uiController.ScoreBoard.UpdateHighScore(highScore);
 
 		AudioController.Instance.StartBgm();
 	}
@@ -93,6 +98,9 @@ public class GameSuperior : MonoBehaviour {
 	{
 		AudioController.Instance.PlaySe(SfxId.GameOver);
 		AudioController.Instance.StopBgm();
+
+		int highScore = this.uiController.ScoreBoard.HighScore;
+		Network.Score.PostHighScore(highScore);
 
 		this.uiController.GameOver.gameObject.SetActive(true);
 		this.inputController.Clear();

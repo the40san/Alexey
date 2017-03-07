@@ -14,6 +14,13 @@ public class ScoreBoard : MonoBehaviour {
 		}
 	}
 
+	public int HighScore {
+		get {
+			return highScore;
+		}
+	}
+
+
 
 	[SerializeField]
 	private Text highScoreText;
@@ -58,6 +65,12 @@ public class ScoreBoard : MonoBehaviour {
 	{
 		this.currentScore += newScore;
 		if (this.highScore < currentScore) this.highScore = currentScore;
+		UpdateScoreText();
+	}
+
+	public void UpdateHighScore(int highScore)
+	{
+		this.highScore = highScore;
 		UpdateScoreText();
 	}
 

@@ -1,0 +1,3 @@
+[submodule "Assets/Assets/Plugins/msgpack-unity"]
+	path = Assets/Assets/Plugins/msgpack-unity
+	url = git@github.com:masharada/msgpack-unity.git
